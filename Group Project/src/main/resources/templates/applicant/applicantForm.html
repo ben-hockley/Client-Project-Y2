@@ -2,35 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <title>Applicant Form</title>
 </head>
 <body>
 <!-- Form for recruitment team to fill in for with applicant details-->
-<form action="/applicantForm" method="post">
-
+<h1>Applicant Form</h1>
+<form action="/applicantForm" method="post" th:object="${applicantForm}" enctype="multipart/form-data">
     <div class="mb-3">
         <label class="form-label" for="name">Name:</label>
-        <input class="form-control" id="name" name="name" placeholder="Applicant Name" type="text"/>
+        <input class="form-control" id="name" name="name" th:field="*{name}"
+               placeholder="Applicant Name" type="text"/>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="phone">Phone:</label>
-        <input class="form-control" id="phone" name="phone" placeholder="Applicant Phone Number" type="text"/>
+        <input class="form-control" id="phone" name="phone" th:field="*{phone}"
+               placeholder="Applicant Phone Number" type="text"/>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="email">Email:</label>
-        <input class="form-control" id="email" name="email" placeholder="Applicant Email" type="email"/>
+        <input class="form-control" id="email" name="email" th:field="*{email}"
+               placeholder="Applicant Email" type="email"/>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="location">Location:</label>
-        <input class="form-control" id="location" name="location" placeholder="Applicant Location" type="text"/>
+        <input class="form-control" id="location" name="location" th:field="*{location}"
+               placeholder="Applicant Location" type="text"/>
     </div>
 
     <div class="mb-3">
-        <label class="form-lable" for="event">Event:</label>
-        <select class="form-select" id="event" name="event">
+        <label class="form-label" for="mostRecentJob">Most Recent Job Role:</label>
+        <input class="form-control" id="mostRecentJob" name="mostRecentJob" th:field="*{mostRecentJob}"
+               placeholder="Previous Job" type="text"/>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="vacancyAppliedFor">Vacancy Applying For:</label>
+        <input class="form-control" id="vacancyAppliedFor" name="vacancyAppliedFor" th:field="*{vacancyAppliedFor}"
+               placeholder="Desired Job" type="text"/>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="cv">Upload CV:</label>
+        <input class="form-control" id="cv" name="cv" th:field="*{cv}" type="file"/>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="event">Event:</label>
+        <select class="form-select" id="event" name="event" th:field="*{event}">
             <option value="">N/A</option>
             <th:block th:each="event : ${events}">
                 <option th:text="${event.name}" th:value="${event.id}"></option>
@@ -40,17 +62,15 @@
 
     <div class="mb-3">
         <label class="form-check-label" for="isInternal">Internal Applicant?</label>
-        <input checked="false" class="form-check-input" id="isInternal"
-               name="isInternal" type="checkbox"/>
+        <input checked="false" class="form-check-input" id="isInternal" name="isInternal"
+               th:field="*{isInternal}" type="checkbox"/>
     </div>
 
     <div class="mb-3">
         <button class="btn btn-primary">Submit</button>
     </div>
-    <div>
-        <div class="mb-3">
-            <a class="btn btn-primary" href="/applicantForm">Cancel</a>
-        </div>
+    <div class="mb-3">
+        <a class="btn btn-secondary" href="/applicantForm">Cancel</a>
     </div>
 </form>
 </body>
