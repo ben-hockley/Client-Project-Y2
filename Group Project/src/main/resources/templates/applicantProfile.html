@@ -6,10 +6,12 @@
 </head>
 <body>
 <h1 th:text="${applicant.getName()}"></h1>
+<img height="250px" width="250px" src="">
 <p th:text="${applicant.getApplicantTypeAsString()} + ' applicant.'"></p>
 <p th:text="'Email: ' + ${applicant.getEmail()}"></p>
 <p th:text="'Phone: ' + ${applicant.getPhoneNumber()}"></p>
 <p th:text="'Application Date: '+ ${applicant.getStartDateAsString()}"></p>
+<p th:text="'Location: ' + ${applicant.getLocationAsString()}"></p>
 <a href="/applicants/all">Back to home</a>
 </body>
 </html>

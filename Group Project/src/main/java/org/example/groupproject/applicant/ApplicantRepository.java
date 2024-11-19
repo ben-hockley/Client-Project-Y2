@@ -8,10 +8,10 @@ import java.util.List;
 @Repository
 public class ApplicantRepository {
 
-    Applicant applicant1 = new Applicant(1L, "John Doe", "555-555-5555",
-            "johndoe@gmail.com", ApplicantType.INTERNAL, LocalDate.now());
-    Applicant applicant2 = new Applicant(2L, "Jane Doe", "123-456-7890",
-            "janedoe@gmail.com", ApplicantType.EXTERNAL, LocalDate.now());
+    Applicant applicant1 = new Applicant(1L, "John Doe", "555-555-5555", Location.London,
+            "johndoe@gmail.com", ApplicantType.Internal, LocalDate.now());
+    Applicant applicant2 = new Applicant(2L, "Jane Doe", "123-456-7890", Location.Wales,
+            "janedoe@gmail.com", ApplicantType.External, LocalDate.now());
 
     List<Applicant> applicantList = List.of(applicant1, applicant2);
 

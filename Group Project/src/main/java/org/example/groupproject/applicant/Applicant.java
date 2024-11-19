@@ -1,12 +1,13 @@
 package org.example.groupproject.applicant;
 
+
 import java.time.LocalDate;
 
 public class Applicant {
     private Long id;
     private String name;
     private String phoneNumber;
-    // address
+    private Location location;
     private String email;
     private ApplicantType applicantType;
     private LocalDate startDate;
@@ -14,17 +15,31 @@ public class Applicant {
     public Applicant(Long id,
                      String name,
                      String phoneNumber,
+                     Location location,
                      String email,
                      ApplicantType applicantType,
                      LocalDate startDate) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.location = location;
         this.email = email;
         this.applicantType = applicantType;
         this.startDate = startDate;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public String getLocationAsString() {
+        String locationAsString = location.toString();
+        return locationAsString.replaceAll("_", " ");
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
     public Long getId() {
         return id;
     }
