@@ -1,6 +1,7 @@
 package org.example.groupproject.applicant;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +21,16 @@ public class ApplicantController {
         List<Applicant> applicants = applicantRepository.findAll();
 
         modelAndView.addObject("applicants", applicants);
+        return modelAndView;
+    }
+
+    @GetMapping("/profile/{id}")
+    public ModelAndView applicantProfile(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("applicantProfile");
+
+        Applicant applicant = applicantRepository.findById(id);
+
+        modelAndView.addObject("applicant", applicant);
         return modelAndView;
     }
 

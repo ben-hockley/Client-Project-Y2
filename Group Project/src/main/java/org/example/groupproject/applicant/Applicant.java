@@ -61,12 +61,20 @@ public class Applicant {
         return applicantType;
     }
 
+    public String getApplicantTypeAsString() {
+        return applicantType.toString();
+    }
+
     public void setApplicantType(ApplicantType applicantType) {
         this.applicantType = applicantType;
     }
 
     public LocalDate getStartDate() {
         return startDate;
+    }
+
+    public String getStartDateAsString() {
+        return startDate.toString();
     }
 
     public void setStartDate(LocalDate startDate) {

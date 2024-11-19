@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${applicant.getName()} + '\'s profile'"></title>
+</head>
+<body>
+<h1 th:text="${applicant.getName()}"></h1>
+<p th:text="${applicant.getApplicantTypeAsString()} + ' applicant.'"></p>
+<p th:text="'Email: ' + ${applicant.getEmail()}"></p>
+<p th:text="'Phone: ' + ${applicant.getPhoneNumber()}"></p>
+<p th:text="'Application Date: '+ ${applicant.getStartDateAsString()}"></p>
+<a href="/applicants/all">Back to home</a>
+</body>
+</html>
