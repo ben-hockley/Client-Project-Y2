@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Applicants</title>
+</head>
+<body>
+    <h1>All Applicants</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+        </thead>
+        <tbody>
+        <tr th:each="applicant : ${applicants}">
+            <td th:text="${applicant.getId()}"></td>
+            <td th:text="${applicant.getName()}"></td>
+            <td th:text="${applicant.getEmail()}"></td>
+            <td th:text="${applicant.getPhoneNumber()}"></td>
+            <td th:text="${applicant.getApplicantType().toString()}"></td>
+            <td th:text="${applicant.getStartDate().toString()}"></td>
+        </tbody>
+    </table>
+</body>
+</html>
