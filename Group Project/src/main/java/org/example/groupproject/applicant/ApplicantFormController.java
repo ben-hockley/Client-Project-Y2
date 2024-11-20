@@ -15,8 +15,8 @@ import java.util.List;
 @Controller
 public class ApplicantFormController {
 
-    // Constants for the file upload
-    private static final long maxFileSizeBytes = 1 * 1024 * 1024;
+    // Constants for the file upload - max size: 1Mb and format: PDF
+    private static final long maxFileSizeBytes = 1024 * 1024;
     private static final String allowedFileType = "application/pdf";
 
     private final ApplicantFormService applicantFormService;
@@ -72,6 +72,12 @@ public class ApplicantFormController {
 
         // Saving the form when all data is valid
         applicantFormService.saveApplicantForm(applicantForm);
-        return new ModelAndView("redirect:/applicantForm");
+
+        // Return success message and reset form
+        ModelAndView modelAndView = new ModelAndView("applicant/applicantForm");
+        modelAndView.addObject("successMessage", "Form Submitted Successfully");
+        modelAndView.addObject("applicantForm", new ApplicantForm()); // Reset form
+        modelAndView.addObject("events", eventService.getAllEvents());
+        return modelAndView;
     }
 }
