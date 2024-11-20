@@ -5,6 +5,8 @@ create table if not exists applicants (
     email varchar(255) not null,
     phone varchar(255) not null,
     location varchar(255),
+    currentJobRole varchar(255) not null,
+    oldJobRole varchar(255) not null,
     eventID int,
     isInternal boolean,
     startDate date
