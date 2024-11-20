@@ -9,45 +9,57 @@
 <!-- Form for recruitment team to fill in for with applicant details-->
 <h1>Applicant Form</h1>
 <form action="/applicantForm" method="post" th:object="${applicantForm}" enctype="multipart/form-data">
+    <div class="mb-3 text-danger" th:if="${errorMessage}">
+        <p th:text="${errorMessage}"></p>
+    </div>
     <div class="mb-3">
         <label class="form-label" for="name">Name:</label>
         <input class="form-control" id="name" name="name" th:field="*{name}"
                placeholder="Applicant Name" type="text"/>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="phone">Phone:</label>
         <input class="form-control" id="phone" name="phone" th:field="*{phone}"
                placeholder="Applicant Phone Number" type="text"/>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="email">Email:</label>
         <input class="form-control" id="email" name="email" th:field="*{email}"
                placeholder="Applicant Email" type="email"/>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="location">Location:</label>
         <input class="form-control" id="location" name="location" th:field="*{location}"
                placeholder="Applicant Location" type="text"/>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="mostRecentJob">Most Recent Job Role:</label>
         <input class="form-control" id="mostRecentJob" name="mostRecentJob" th:field="*{mostRecentJob}"
                placeholder="Previous Job" type="text"/>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('mostRecentJob')}"
+             th:errors="*{mostRecentJob}"></div>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="vacancyAppliedFor">Vacancy Applying For:</label>
         <input class="form-control" id="vacancyAppliedFor" name="vacancyAppliedFor" th:field="*{vacancyAppliedFor}"
                placeholder="Desired Job" type="text"/>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('vacancyAppliedFor')}"
+             th:errors="*{vacancyAppliedFor}"></div>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="cv">Upload CV:</label>
         <input class="form-control" id="cv" name="cv" th:field="*{cv}" type="file"/>
+        <div class="text-danger" th:if="${#fields.hasErrors('cv')}" th:errors="*{cv}"></div>
     </div>
 
     <div class="mb-3">
@@ -58,6 +70,7 @@
                 <option th:text="${event.name}" th:value="${event.id}"></option>
             </th:block>
         </select>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('event')}" th:errors="*{event}"></div>
     </div>
 
     <div class="mb-3">

@@ -6,10 +6,9 @@ import java.util.List;
 
 @Service
 public class EventService {
-
-    // Method to get a list of Event objects
     public List<Event> getAllEvents() {
-        // Sample data for demonstration purposes
+
+        // Temporary placeholder events
         return Arrays.asList(
                 new Event(1L, "Event 1"),
                 new Event(2L, "Event 2"),
