@@ -1,20 +1,35 @@
 package org.example.groupproject.applicant;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ApplicantFormService {
 
-    private final List<ApplicantForm> applicantForms = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
 
-    public void saveApplicantForm(ApplicantForm applicantForm) {
-        applicantForms.add(applicantForm); // Until we have a database, we will store the data in memory
-        System.out.println("Applicant Form: " + applicantForm);
+    public ApplicantFormService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ApplicantForm> getAllApplicantForms() {
-        return new ArrayList<>(applicantForms);
+    // Saving the applicant form to the database
+    public void saveApplicantForm(ApplicantForm applicantForm, String cvFilePath) {
+        String sql = "INSERT INTO applicants (name, email, phone, location, currentJobRole, oldJobRole, eventID, isInternal, startDate, cvFilePath) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
+                applicantForm.getName(),
+                applicantForm.getEmail(),
+                applicantForm.getPhone(),
+                applicantForm.getLocation(),
+                applicantForm.getMostRecentJob(),
+                applicantForm.getVacancyAppliedFor(),
+                applicantForm.getEvent() != null ? Integer.valueOf(applicantForm.getEvent()) : null,
+                applicantForm.getIsInternal(),
+                LocalDate.now(),
+                cvFilePath);
     }
 }

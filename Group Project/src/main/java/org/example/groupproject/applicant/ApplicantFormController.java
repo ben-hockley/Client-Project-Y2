@@ -2,18 +2,30 @@ package org.example.groupproject.applicant;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.example.groupproject.event.Event;
 import org.example.groupproject.event.EventService;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ApplicantFormController {
+
+    // Setting the upload directory
+    @Value("${file.upload-dir}")
+    private String uploadDir;
 
     // Constants for the file upload - max size: 1Mb and format: PDF
     private static final long maxFileSizeBytes = 1024 * 1024;
@@ -70,8 +82,19 @@ public class ApplicantFormController {
             return modelAndView;
         }
 
-        // Saving the form when all data is valid
-        applicantFormService.saveApplicantForm(applicantForm);
+        // Saving the CV
+        MultipartFile cv = applicantForm.getCv();
+        String cvFilename = UUID.randomUUID() + "-" + cv.getOriginalFilename();
+        Path cvPath = Paths.get(uploadDir, cvFilename);
+        try {
+            Files.createDirectories(cvPath.getParent()); // Ensure directory exists
+            Files.write(cvPath, cv.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save CV file", e);
+        }
+
+        // Save applicant data to the database
+        applicantFormService.saveApplicantForm(applicantForm, cvPath.toString());
 
         // Return success message and reset form
         ModelAndView modelAndView = new ModelAndView("applicant/applicantForm");
