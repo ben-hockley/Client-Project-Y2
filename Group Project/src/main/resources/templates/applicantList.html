@@ -14,13 +14,13 @@
         </thead>
         <tbody>
         <tr th:each="applicant : ${applicants}">
-            <td th:text="${applicant.getId()}"></td>
-            <td><a th:href="'/applicants/profile/' + ${applicant.getId()}" th:text="${applicant.getName()}"></a></td>
-            <td th:text="${applicant.getEmail()}"></td>
-            <td th:text="${applicant.getPhoneNumber()}"></td>
-            <td th:text="${applicant.getApplicantTypeAsString()}"></td>
-            <td th:text="${applicant.getStartDateAsString()}"></td>
-            <td th:text="${applicant.getLocationAsString()}"></td>
+            <td th:text="${applicant.id()}"></td>
+            <td><a th:href="'/applicants/profile/' + ${applicant.id()}" th:text="${applicant.name()}"></a></td>
+            <td th:text="${applicant.email()}"></td>
+            <td th:text="${applicant.phone()}"></td>
+            <td th:text="${applicant.isInternal().toString()}"></td>
+            <td th:text="${applicant.startDate().toString()}"></td>
+            <td th:text="${applicant.location().toString()}"></td>
         </tr>
         </tbody>
     </table>
