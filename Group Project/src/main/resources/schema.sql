@@ -9,7 +9,8 @@ create table if not exists applicants (
     oldJobRole varchar(255) not null,
     eventID int,
     isInternal boolean,
-    startDate date
+    startDate date,
+    cvFilePath varchar(255)
 );
 
 drop table if exists events;
