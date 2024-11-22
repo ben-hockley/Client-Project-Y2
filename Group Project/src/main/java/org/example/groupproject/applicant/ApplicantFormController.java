@@ -99,7 +99,7 @@ public class ApplicantFormController {
         // Return success message and reset form
         ModelAndView modelAndView = new ModelAndView("applicant/applicantForm");
         modelAndView.addObject("successMessage", "Form Submitted Successfully");
-        modelAndView.addObject("applicantForm", new ApplicantForm()); // Reset form
+        modelAndView.addObject("applicantForm", new ApplicantForm());
         modelAndView.addObject("events", eventService.getAllEvents());
         return modelAndView;
     }
