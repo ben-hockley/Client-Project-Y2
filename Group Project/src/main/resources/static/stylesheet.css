@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body{
+    font-family: "Roboto", sans-serif
+}
+
+.applicantColumn{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px;
+    width: auto;
+}
+.applicantRow{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: auto;
+    background-color:  #ebf1f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.applicantLink {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+.applicantLink:hover {
+    background-color: #d0e4f1;
+}
+
+.btnAddApplicants{
+    float: right;
+    margin: 10px;
+    background-color:  #ebf1f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btnAddApplicants:hover{
+    background-color: #d0e4f1;
+}
