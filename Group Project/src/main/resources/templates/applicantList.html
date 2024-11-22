@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Applicants</title>
+</head>
+<body>
+    <h1>All Applicants</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+        </thead>
+        <tbody>
+        <tr th:each="applicant : ${applicants}">
+            <td th:text="${applicant.id()}"></td>
+            <td><a th:href="'/applicants/profile/' + ${applicant.id()}" th:text="${applicant.name()}"></a></td>
+            <td th:text="${applicant.email()}"></td>
+            <td th:text="${applicant.phone()}"></td>
+            <td th:text="${applicant.isInternal().toString()}"></td>
+            <td th:text="${applicant.startDate().toString()}"></td>
+            <td th:text="${applicant.location().toString()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
