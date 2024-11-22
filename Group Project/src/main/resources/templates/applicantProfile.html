@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${applicant.name()} + '\'s profile'"></title>
+</head>
+<body>
+<h1 th:text="${applicant.name()}"></h1>
+<img height="250px" width="250px" src="">
+<p th:text="${applicant.isInternal().toString()} + ' applicant.'"></p>
+<p th:text="'Email: ' + ${applicant.id()}"></p>
+<p th:text="'Phone: ' + ${applicant.phone()}"></p>
+<p th:text="'Application Date: '+ ${applicant.startDate().toString()}"></p>
+<p th:text="'Location: ' + ${applicant.location().toString()}"></p>
+<h3>CV</h3>
+<h3>Cover Letter</h3>
+<h3>Application History</h3>
+<a href="/applicants/all">Back to home</a>
+</body>
+</html>
