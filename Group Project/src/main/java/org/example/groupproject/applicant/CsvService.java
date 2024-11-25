@@ -1,9 +1,7 @@
-package org.example.groupproject.CsvService;
+package org.example.groupproject.applicant;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import org.example.groupproject.applicant.Applicant;
-import org.example.groupproject.applicant.CsvRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ public class CsvService {
             List<String[]> records = reader.readAll();
             for (String[] record : records) {
                 Applicant applicant = new Applicant();
-                applicant.setName(record[0]);
+                applicant.setName(String.valueOf(record[0]));
                 applicant.setEmail(record[1]);
                 applicant.setPhone(record[2]);
                 applicant.setLocation(record[3]);

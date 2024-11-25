@@ -1,7 +1,6 @@
-package org.example.groupproject.controller;
+package org.example.groupproject.applicant;
 
 import com.opencsv.exceptions.CsvException;
-import org.example.groupproject.CsvService.CsvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +38,7 @@ public class CsvController {
             file.transferTo(tempFile.toFile());
 
             // Import the CSV data
-            csvService.importApplicantsFromCsv(tempFile.toString());
+            csvService.importApplicantsFromCsv(String.valueOf(tempFile));
 
             // Clean up the temporary file
             Files.delete(tempFile);
