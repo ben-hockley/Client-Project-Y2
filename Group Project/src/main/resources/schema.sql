@@ -26,5 +26,5 @@ create table if not exists admin(
     adminUserName varchar(255) not null,
     adminEmail varchar(255) not null,
     adminPassword varchar(255) not null,
-    isAdmin boolean not null
+isAdmin boolean not null
 ) engine=InnoDB;

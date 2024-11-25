@@ -8,7 +8,7 @@
 <h1 th:text="${applicant.name()}"></h1>
 <img height="250px" width="250px" src="">
 <p th:text="${applicant.isInternal().toString()} + ' applicant.'"></p>
-<p th:text="'Email: ' + ${applicant.id()}"></p>
+<p th:text="'Email: ' + ${applicant.email()}"></p>
 <p th:text="'Phone: ' + ${applicant.phone()}"></p>
 <p th:text="'Application Date: '+ ${applicant.startDate().toString()}"></p>
 <p th:text="'Location: ' + ${applicant.location().toString()}"></p>

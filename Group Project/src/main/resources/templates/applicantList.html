@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>All Applicants</title>
+    <link rel="stylesheet" href="/stylesheet.css">
 </head>
 <body>
+    <a href="/applicantForm" class="btnAddApplicants">Applicants Form</a>
+
     <h1>All Applicants</h1>
 
     <table>
         <thead>
         <tr>
-            <th>Name</th>
+            <th>All Applicants</th>
         </thead>
-        <tbody>
-        <tr th:each="applicant : ${applicants}">
-            <td th:text="${applicant.id()}"></td>
-            <td><a th:href="'/applicants/profile/' + ${applicant.id()}" th:text="${applicant.name()}"></a></td>
-            <td th:text="${applicant.email()}"></td>
-            <td th:text="${applicant.phone()}"></td>
-            <td th:text="${applicant.isInternal().toString()}"></td>
-            <td th:text="${applicant.startDate().toString()}"></td>
-            <td th:text="${applicant.location().toString()}"></td>
+        <tbody class="applicantColumn">
+        <tr th:each="applicant : ${applicants}" class="applicantRow">
+            <td>
+                <a th:href="'/applicants/profile/' + ${applicant.id()}" class="applicantLink">
+                    <span th:text="${applicant.name()}"></span>
+                    <span th:text="'Email: ' + ${applicant.email()}"></span>
+                    <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>
+                    <span th:text="'Location: ' + ${applicant.location().toString()}"></span>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
