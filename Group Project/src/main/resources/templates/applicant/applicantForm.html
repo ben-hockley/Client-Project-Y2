@@ -79,7 +79,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="event">Event:</label>
                     <select class="form-select" id="event" name="event" th:field="*{event}">
-                        <option value="N/A">N/A</option>
+                        <option value="">N/A</option>
                         <th:block th:each="event : ${events}">
                             <option th:text="${event.name}" th:value="${event.id}"></option>
                         </th:block>

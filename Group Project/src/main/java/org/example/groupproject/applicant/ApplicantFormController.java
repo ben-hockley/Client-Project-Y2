@@ -93,11 +93,6 @@ public class ApplicantFormController {
             throw new RuntimeException("Failed to save CV file", e);
         }
 
-        // Ensuring the event is passed as null if N/A is selected
-        if (applicantForm.getEvent().equals("N/A")) {
-            applicantForm.setEvent(null);
-        }
-
         // Save applicant data to the database
         applicantFormService.saveApplicantForm(applicantForm, cvPath.toString());
 
