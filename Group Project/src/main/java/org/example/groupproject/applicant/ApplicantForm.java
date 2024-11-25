@@ -51,6 +51,7 @@ public class ApplicantForm {
     @Size(max = maxLocationLength, message = "Location must not exceed " + maxLocationLength + " characters")
     private String location;
 
+
     private String event;
     private Boolean isInternal;
 
