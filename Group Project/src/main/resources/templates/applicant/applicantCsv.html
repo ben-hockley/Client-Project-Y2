@@ -1,0 +1,14 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload CSV</title>
+</head>
+<body>
+<h1>Upload CSV File</h1>
+<form action="/import-csv" method="post" enctype="multipart/form-data">
+    <label for="file">Choose CSV file:</label>
+    <input type="file" id="file" name="file" accept=".csv" required>
+    <button type="submit">Upload</button>
+</form>
+</body>
+</html>
