@@ -1,13 +1,14 @@
 package org.example.groupproject.applicant;
 
+import org.example.groupproject.event.Event;
+import org.example.groupproject.filter.Filter;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
+import org.example.groupproject.event.Event;
+import org.example.groupproject.event.EventService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,17 +18,44 @@ import java.util.Optional;
 public class ApplicantController {
 
     private final ApplicantRepository applicantRepository;
+    private final EventService eventService;
 
-    public ApplicantController(ApplicantRepository applicantRepository) {
+
+    public ApplicantController(ApplicantRepository applicantRepository, EventService eventService) {
         this.applicantRepository = applicantRepository;
+        this.eventService = eventService;
     }
     @GetMapping("/all")
-    public ModelAndView allApplicants() {
+    public ModelAndView allApplicants(@ModelAttribute("filter") Filter filter) {
+
         ModelAndView modelAndView = new ModelAndView("applicantList");
 
-        List<Applicant> applicants = applicantRepository.findAll();
+        Integer eventId = filter.getEventId();
+        Boolean isInternal = filter.getIsInternal();
+        Location location = filter.getLocation();
+
+        // If isInternal is false, reset it to null, so all applicants are visible
+        if (isInternal != null && !isInternal) {
+            isInternal = null;
+        }
+
+        List<Applicant> applicants;
+        // If no filters are applied, show all applicants
+        if (eventId == null && isInternal == null &&
+                (location == null || location.name().equalsIgnoreCase("All"))) {
+            applicants = applicantRepository.findAll();
+        // If filters are applied, show applicants based on filters
+        } else {
+            applicants = applicantRepository.findWithFilters(eventId, isInternal, location);
+        }
+
+        List<Event> events = eventService.getAllEvents();
+        List<Location> locations = List.of(Location.values());
+        modelAndView.addObject("filter", filter);
 
         modelAndView.addObject("applicants", applicants);
+        modelAndView.addObject("events", events);
+        modelAndView.addObject("locations", locations);
         return modelAndView;
     }
 

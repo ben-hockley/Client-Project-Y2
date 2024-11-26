@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +26,32 @@ public class ApplicantRepository {
                 .param("id", id)
                 .query(Applicant.class)
                 .single();
+    }
+
+    public List<Applicant> findWithFilters(Integer eventId, Boolean isInternal, Location location) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
+
+        if (eventId != null) {
+            sql.append(" AND eventId IN (:eventIds)");
+        }
+        if (isInternal != null) {
+            sql.append(" AND isInternal = :isInternal");
+        }
+        if (location != null && !location.name().equalsIgnoreCase("All")) {
+            sql.append(" AND location = :location");
+        }
+
+        var query = jdbcClient.sql(sql.toString());
+
+        if (eventId != null) {
+            query = query.param("eventIds", eventId);
+        }
+        if (isInternal != null) {
+            query = query.param("isInternal", isInternal);
+        }
+        if (location != null && !location.name().equalsIgnoreCase("All")) {
+            query = query.param("location", location.name());
+        }
+        return query.query(Applicant.class).list();
     }
 }

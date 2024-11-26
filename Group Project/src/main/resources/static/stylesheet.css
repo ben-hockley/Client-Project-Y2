@@ -46,3 +46,8 @@ body{
 .btnAddApplicants:hover{
     background-color: #d0e4f1;
 }
+
+.filterFormLabel{
+    display: inline-block;
+    margin-right: 15px;
+}
