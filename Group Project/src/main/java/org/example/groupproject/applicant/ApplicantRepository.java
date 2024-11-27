@@ -28,8 +28,12 @@ public class ApplicantRepository {
                 .single();
     }
 
-    public List<Applicant> findWithFilters(Integer eventId, Boolean isInternal, Location location) {
+    public List<Applicant> findWithFilters(String searchQuery, Integer eventId, Boolean isInternal, Location location) {
         StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
+
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(oldJobRole) LIKE :searchQuery)");
+        }
 
         if (eventId != null) {
             sql.append(" AND eventId IN (:eventIds)");
@@ -42,6 +46,10 @@ public class ApplicantRepository {
         }
 
         var query = jdbcClient.sql(sql.toString());
+
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            query = query.param("searchQuery", "%" + searchQuery.toLowerCase() + "%");
+        }
 
         if (eventId != null) {
             query = query.param("eventIds", eventId);
