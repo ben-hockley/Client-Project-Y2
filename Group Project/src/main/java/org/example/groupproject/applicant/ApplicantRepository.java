@@ -23,8 +23,8 @@ public class ApplicantRepository {
     }
 
     public Applicant findById(Integer id) {
-        return jdbcClient.sql("SELECT id,name,email,phone,location,currentJobRole,oldJobRole,eventId,isInternal," +
-                        "startDate FROM applicants WHERE id = :id")
+        return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role,eventId," +
+                        "is_internal, start_date FROM applicants WHERE id = :id")
                 .param("id", id)
                 .query(Applicant.class)
                 .single();
@@ -49,14 +49,14 @@ public class ApplicantRepository {
         StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
 
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(oldJobRole) LIKE :searchQuery)");
+            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(old_job_role) LIKE :searchQuery)");
         }
 
         if (eventId != null) {
-            sql.append(" AND eventId IN (:eventIds)");
+            sql.append(" AND eventid IN (:eventIds)");
         }
         if (isInternal != null) {
-            sql.append(" AND isInternal = :isInternal");
+            sql.append(" AND is_internal = :isInternal");
         }
         if (location != null && !location.name().equalsIgnoreCase("All")) {
             sql.append(" AND location = :location");
