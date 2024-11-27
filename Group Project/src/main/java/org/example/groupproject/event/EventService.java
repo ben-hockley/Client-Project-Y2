@@ -17,11 +17,11 @@ public class EventService {
 
     // Retrieves all events from the database to be displayed in the applicant form
     public List<Event> getAllEvents() {
-        String sql = "SELECT eventId, eventName FROM events";
+        String sql = "SELECT eventid, event_name FROM events";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Event event = new Event();
-            event.setId(rs.getLong("eventId"));
-            event.setName(rs.getString("eventName"));
+            event.setId(rs.getLong("eventid"));
+            event.setName(rs.getString("event_name"));
             return event;
         });
     }

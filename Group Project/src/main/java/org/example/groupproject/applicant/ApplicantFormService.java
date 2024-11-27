@@ -18,7 +18,8 @@ public class ApplicantFormService {
 
     // Saving the applicant form to the database
     public void saveApplicantForm(ApplicantForm applicantForm, String cvFilePath) {
-        String sql = "INSERT INTO applicants (name, email, phone, location, currentJobRole, oldJobRole, eventID, isInternal, startDate, cvFilePath) " +
+        String sql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role, eventID," +
+                "is_internal, start_date, cv_file_path) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 applicantForm.getName(),
