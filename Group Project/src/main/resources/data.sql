@@ -1,6 +1,6 @@
 delete from applicants;
 delete from events;
-delete from admin;
+delete from users;
 
 insert into applicants (name, email, phone, location, currentJobRole, oldJobRole, eventID, isInternal, startDate, cvFilePath)
 values ('Test User','test@test.com','1234567890','Wales','TestOldJob1, TestOldJob2','Test Location',1,TRUE,'2021-01-01','TestCVPath'),
@@ -21,9 +21,9 @@ values ('Test Event 1','Test Location 1'),
       ('Test Event 4','Test Location 4');
 
 
-insert into admin (adminUserName, adminEmail, adminPassword, isAdmin)
+insert into users (username, password, email, is_admin)
 values ('adminTest','adminTest@test.com','adminTest',FALSE);
 
-select * from admin;
+select * from users;
 select * from events;
 select * from applicants;

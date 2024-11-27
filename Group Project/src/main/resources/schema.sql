@@ -19,12 +19,12 @@ create table if not exists events(
     eventName varchar(255) not null,
     eventLocation varchar(255) not null
 );
-
-drop table if exists admin;
-create table if not exists admin(
-    adminId int auto_increment primary key,
-    adminUserName varchar(255) not null,
-    adminEmail varchar(255) not null,
-    adminPassword varchar(255) not null,
-isAdmin boolean not null
+drop table if exists user;
+drop table if exists users;
+create table if not exists users(
+    id int auto_increment primary key,
+    username varchar(255) not null,
+    password varchar(255) not null,
+    email varchar(255) not null,
+    is_admin boolean not null
 ) engine=InnoDB;

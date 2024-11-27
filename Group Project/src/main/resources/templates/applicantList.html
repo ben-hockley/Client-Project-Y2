@@ -13,7 +13,7 @@
     <table>
         <thead>
         <tr>
-            <th>All Applicants</th>
+            <th th:text="'Welcome back ' + ${activeUser.getUsername}">All Applicants</th>
         </thead>
         <tbody class="applicantColumn">
         <tr th:each="applicant : ${applicants}" class="applicantRow">
