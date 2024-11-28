@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
-import org.example.groupproject.event.EventService;
 
 // The following webpage helped with implementing the exception handler:
 // https://medium.com/@bereketberhe27/mastering-global-exception-handling-in-spring-boot-a-practical-guide-fe946b3eaeb9
@@ -12,6 +11,7 @@ import org.example.groupproject.event.EventService;
 @ControllerAdvice
 public class FileUploadControllerAdvice {
     private static final long maxFileSizeMB = 1;
+
 
     private final EventService eventService;
 

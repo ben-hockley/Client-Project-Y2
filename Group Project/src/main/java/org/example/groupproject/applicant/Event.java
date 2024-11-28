@@ -1,4 +1,4 @@
-package org.example.groupproject.event;
+package org.example.groupproject.applicant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

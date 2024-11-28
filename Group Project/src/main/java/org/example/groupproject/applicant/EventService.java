@@ -1,6 +1,6 @@
-package org.example.groupproject.event;
+package org.example.groupproject.applicant;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.groupproject.applicant.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,7 +10,6 @@ public class EventService {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public EventService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

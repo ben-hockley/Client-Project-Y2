@@ -1,19 +1,12 @@
 package org.example.groupproject.applicant;
 
-import org.example.groupproject.event.Event;
 import org.example.groupproject.filter.Filter;
-import org.springframework.http.HttpStatus;
-import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-import org.example.groupproject.event.Event;
-import org.example.groupproject.event.EventService;
 
 import java.util.List;
-import java.util.Optional;
+
 import jakarta.validation.Valid;
 
 @RequestMapping("/applicants")
