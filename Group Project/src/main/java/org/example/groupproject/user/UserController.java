@@ -15,9 +15,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ApplicantController applicantController;
-
     @GetMapping("")
     public String returnHomePage() {
         return "home";
@@ -31,14 +28,14 @@ public class UserController {
     }
 
     @PostMapping("/process_register")
-    public ModelAndView processRegister(User user) {
+    public String processRegister(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
 
-        return applicantController.viewAllApplicants(user);
+        return "registration_success";
     }
 
 
