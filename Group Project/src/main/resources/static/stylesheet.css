@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body{
+    font-family: "Roboto", sans-serif
+}
+
+.applicantColumn{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px;
+    width: auto;
+}
+.applicantRow{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: auto;
+    background-color:  #ebf1f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.applicantLink {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+.applicantLink:hover {
+    background-color: #d0e4f1;
+}
+
+.btnAddApplicants{
+    float: right;
+    margin: 10px;
+    background-color:  #ebf1f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btnAddApplicants:hover{
+    background-color: #d0e4f1;
+}
+
+.filterFormLabel{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+}
+.filter-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    width: 300px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.filter-form {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-form select {
+    margin-bottom: 10px;
+}
+.filterApplyButton{
+    display: inline-block;
+    margin-left: 5px;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>All Applicants</title>
+    <link rel="stylesheet" href="/stylesheet.css">
+</head>
+<body>
+    <a href="/applicantForm" class="btnAddApplicants">Applicants Form</a>
+
+    <h1>All Applicants</h1>
+    <form th:action="@{/applicants/all}" method="get" class="filter-form" th:object="${filter}">
+        <h3>Keyword Search:</h3>
+        <label for="searchQuery">Search by Name or Previous Job:</label>
+        <input class="form-control" id="searchQuery" name="searchQuery" th:value="${searchQuery}"
+               placeholder="Enter an applicant name or Previous Job title">
+        <div class="text-danger" th:if="${#fields.hasErrors('searchQuery')}" th:errors="*{searchQuery}"></div>
+        <div class="mb-3">
+            <h3>Filters:</h3>
+        </div>
+        <label class="form-label filterFormLabel" for="event">Event:</label>
+        <select class="form-select filterFormLabel" id="event" th:field="*{eventId}">
+            <option value="">All</option>
+            <th:block th:each="event : ${events}">
+                <option th:text="${event.name}" th:value="${event.id}"></option>
+            </th:block>
+        </select>
+        <label class="form-label filterFormLabel">
+            <input type="checkbox" th:field="*{isInternal}">
+            Internal
+        </label>
+        <label class="filterFormLabel" for="locationFilter">Location:</label>
+        <select id="locationFilter" th:field="*{location}">
+            <option value="">All</option>
+            <option th:each="loc : ${locations}" th:value="${loc}" th:text="${loc}"></option>
+        </select>
+        <button type="submit" class="bnt btn-primary mt-3 filterApplyButton">Apply</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>All Applicants</th>
+        </thead>
+        <tbody class="applicantColumn">
+        <tr th:each="applicant : ${applicants}" class="applicantRow">
+            <td>
+                <a th:href="'/applicants/profile/' + ${applicant.id()}" class="applicantLink">
+                    <span th:text="${applicant.name()}"></span>
+                    <span th:text="'Email: ' + ${applicant.email()}"></span>
+                    <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>
+                    <span th:text="'Location: ' + ${applicant.location().toString()}"></span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

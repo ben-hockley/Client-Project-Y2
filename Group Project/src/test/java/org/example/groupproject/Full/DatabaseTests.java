@@ -63,7 +63,7 @@ public class DatabaseTests {
         //When
         String name = jdbcTemplate.queryForObject(sql, String.class);
         //Then
-        assertEquals("Test Event", name);
+        assertEquals("Test Event 1", name);
     }
 
     @Test
@@ -128,6 +128,6 @@ public class DatabaseTests {
         String sql2 = "SELECT eventName FROM events WHERE eventId =" + appEventId;
         String name = jdbcTemplate.queryForObject(sql2, String.class);
         //Then
-        assertEquals("Test Event", name);
+        assertEquals("Test Event 1", name);
     }
 }
