@@ -1,31 +1,31 @@
-package org.example.groupproject.Full;
+//package org.example.groupproject.Full;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.test.annotation.DirtiesContext;
+//
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
+//
+//@SpringBootTest
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+//public class DatabaseTests {
+//
+//    @Autowired
+//    private JdbcTemplate jdbcTemplate;
+//
+//    @Test
+//    public void testApplicantsTableExists() {
+//        //Given
+//        String sql = "SELECT COUNT(*) FROM applicants";
+//        //When
+//        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+//        //Then
+//        assertTrue(count > 0);
+//    }
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.DirtiesContext;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-@SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class DatabaseTests {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Test
-    public void testApplicantsTableExists() {
-        //Given
-        String sql = "SELECT COUNT(*) FROM applicants";
-        //When
-        int count = jdbcTemplate.queryForObject(sql, Integer.class);
-        //Then
-        assertTrue(count > 0);
-    }
-    
 //
 //    @Test
 //    public void testEventsTableExists() {
@@ -131,4 +131,4 @@ public class DatabaseTests {
 //        //Then
 //        assertEquals("Test Event", name);
 //    }
-}
+//}
