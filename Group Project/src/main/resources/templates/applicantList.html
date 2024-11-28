@@ -10,18 +10,16 @@
 
     <h1>All Applicants</h1>
 
-    <div sec:authentification="principal.username"></div>
-
-    <h1 sec:authenticat></h1>
+    <div sec:authentification="name">Username Here</div>
     <table>
         <thead>
         <tr>
-            <th th:text="'Welcome back ' + ${activeUser.getUsername}">All Applicants</th>
+            <th>All Applicants</th>
         </thead>
         <tbody class="applicantColumn">
         <tr th:each="applicant : ${applicants}" class="applicantRow">
             <td>
-                <a th:href="'/applicants/profile/' + ${applicant.id()}" class="applicantLink" th:object="${activeUser}">
+                <a th:href="'/applicants/profile/' + ${applicant.id()}" class="applicantLink">
                     <span th:text="${applicant.name()}"></span>
                     <span th:text="'Email: ' + ${applicant.email()}"></span>
                     <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>

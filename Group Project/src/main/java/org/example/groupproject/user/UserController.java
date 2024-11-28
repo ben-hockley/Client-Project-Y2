@@ -1,5 +1,6 @@
 package org.example.groupproject.user;
 
+import java.security.Principal;
 import org.example.groupproject.applicant.ApplicantController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ public class UserController {
 
     @GetMapping("")
     public String returnHomePage() {
+        System.out.println();
         return "home";
     }
 
