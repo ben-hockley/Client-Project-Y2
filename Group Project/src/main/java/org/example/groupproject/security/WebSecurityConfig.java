@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class WebSecurityConfig   {
+public class WebSecurityConfig {
 
     @Bean
     UserDetailsService userDetailsService() {
@@ -38,7 +38,7 @@ public class WebSecurityConfig   {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/applicants/all","/applicants/profile/{id}").authenticated()
+                        auth.requestMatchers("/applicants/all","/applicants/profile/{id}","/applicantForm").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .formLogin(login ->
