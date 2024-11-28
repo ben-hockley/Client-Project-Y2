@@ -1,7 +1,6 @@
 package org.example.groupproject.applicant;
 
 import org.example.groupproject.user.User;
-import org.example.groupproject.user.UserRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,7 @@ public class ApplicantController {
 
     private final ApplicantRepository applicantRepository;
 
-    public ApplicantController(ApplicantRepository applicantRepository, UserRepository userRepository) {
+    public ApplicantController(ApplicantRepository applicantRepository) {
         this.applicantRepository = applicantRepository;
     }
 

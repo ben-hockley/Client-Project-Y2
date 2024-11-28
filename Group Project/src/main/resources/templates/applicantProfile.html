@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 th:text="${applicant.name()}"></h1>
-<img height="250px" width="250px" src="">
+<img height="250px" width="250px" src="" alt="Profile Picture">
 <p th:text="${applicant.isInternal().toString()} + ' applicant.'"></p>
 <p th:text="'Email: ' + ${applicant.email()}"></p>
 <p th:text="'Phone: ' + ${applicant.phone()}"></p>

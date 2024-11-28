@@ -3,10 +3,7 @@ package org.example.groupproject.applicant;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-
 @Repository
 public class ApplicantRepository {
 
