@@ -21,12 +21,13 @@ public class ApplicantController {
     }
 
     @GetMapping("/profile/{id}")
-    public ModelAndView viewProfile(@PathVariable Integer id){
+    public ModelAndView viewProfile(@PathVariable Integer id, User activeUser){
 
         Applicant applicant = applicantRepository.findById(id);
 
         ModelAndView modelAndView = new ModelAndView("applicantProfile"); // templates/gameDetails.html
         modelAndView.addObject("applicant", applicant);
+        modelAndView.addObject("activeUser", activeUser);
         return modelAndView;
     }
 

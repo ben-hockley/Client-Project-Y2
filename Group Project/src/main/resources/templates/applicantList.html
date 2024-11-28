@@ -18,7 +18,7 @@
         <tbody class="applicantColumn">
         <tr th:each="applicant : ${applicants}" class="applicantRow">
             <td>
-                <a th:href="'/applicants/profile/' + ${applicant.id()}" class="applicantLink">
+                <a th:href="'/applicants/profile/' + ${applicant.id()}" class="applicantLink" th:object="${activeUser}">
                     <span th:text="${applicant.name()}"></span>
                     <span th:text="'Email: ' + ${applicant.email()}"></span>
                     <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>
