@@ -20,24 +20,24 @@ public class CsvService {
     public void importApplicantsFromCsv(String filePath) throws IOException, CsvException {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             List<String[]> records = reader.readAll();
-            List<Applicant> applicants = new ArrayList<>();
+            List<ApplicantCsv> applicants = new ArrayList<>();
             for (String[] record : records) {
                 if (record.length < 10) {
                     // Skip records that do not have the expected number of columns
                     continue;
                 }
-                Applicant applicant = new Applicant();
-                applicant.setName(record[0]);
-                applicant.setEmail(record[1]);
-                applicant.setPhone(record[2]);
-                applicant.setLocation(record[3]);
-                applicant.setCurrentJobRole(record[4]);
-                applicant.setOldJobRole(record[5]);
-                applicant.setEventID(Integer.parseInt(record[6]));
-                applicant.setInternal(Boolean.parseBoolean(record[7]));
-                applicant.setStartDate(Date.valueOf(record[8]));
-                applicant.setCvFilePath(record[9]);
-                applicants.add(applicant);
+                ApplicantCsv applicantCsv = new ApplicantCsv();
+                applicantCsv.setName(record[0]);
+                applicantCsv.setEmail(record[1]);
+                applicantCsv.setPhone(record[2]);
+                applicantCsv.setLocation(record[3]);
+                applicantCsv.setCurrentJobRole(record[4]);
+                applicantCsv.setOldJobRole(record[5]);
+                applicantCsv.setEventID(Integer.parseInt(record[6]));
+                applicantCsv.setInternal(Boolean.parseBoolean(record[7]));
+                applicantCsv.setStartDate(Date.valueOf(record[8]));
+                applicantCsv.setCvFilePath(record[9]);
+                applicants.add(applicantCsv);
             }
             csvRepo.saveAll(applicants); // Save all applicants at once
         }

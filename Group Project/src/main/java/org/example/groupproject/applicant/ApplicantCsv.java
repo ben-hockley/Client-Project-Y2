@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.Date;
 @Entity
 @Table(name = "applicants")
-public class Applicant {
+public class ApplicantCsv {
     @Id
     @Getter
     @Setter
