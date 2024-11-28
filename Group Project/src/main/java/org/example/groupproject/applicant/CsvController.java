@@ -2,6 +2,8 @@ package org.example.groupproject.applicant;
 
 import com.opencsv.exceptions.CsvException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +28,9 @@ public class CsvController {
     }
 
     @PostMapping("/import-csv")
-    public String importCsv(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> importCsv(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return "Please select a CSV file to upload.";
+            return ResponseEntity.badRequest().body("Please select a CSV file to upload.");
         }
 
         try {
@@ -43,9 +45,9 @@ public class CsvController {
             // Clean up the temporary file
             Files.delete(tempFile);
 
-            return "CSV import successful";
+            return ResponseEntity.ok("CSV import successful");
         } catch (IOException | CsvException e) {
-            return "Error during CSV import: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during CSV import: " + e.getMessage());
         }
     }
 }

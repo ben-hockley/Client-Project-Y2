@@ -1,14 +1,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Upload CSV</title>
 </head>
 <body>
-<h1>Upload CSV File</h1>
-<form action="/import-csv" method="post" enctype="multipart/form-data">
-    <label for="file">Choose CSV file:</label>
-    <input type="file" id="file" name="file" accept=".csv" required>
-    <button type="submit">Upload</button>
-</form>
+<div class="container">
+    <h1 class="mt-5">Import Applicants from CSV</h1>
+    <form id="csvForm" action="/import-csv" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Select CSV file:</label>
+            <input type="file" class="form-control-file" id="file" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    <div id="alertPlaceholder"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('csvForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        fetch('/import-csv', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                var alertPlaceholder = document.getElementById('alertPlaceholder');
+                var alertType = data.includes('successful') ? 'alert-success' : 'alert-danger';
+                var alertHTML = `<div class="alert ${alertType} alert-dismissible fade show" role="alert">
+                                ${data}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                             </div>`;
+                alertPlaceholder.innerHTML = alertHTML;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
 </body>
 </html>
