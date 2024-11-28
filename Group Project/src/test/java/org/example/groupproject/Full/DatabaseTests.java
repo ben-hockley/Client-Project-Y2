@@ -25,7 +25,7 @@ public class DatabaseTests {
         //Then
         assertTrue(count > 0);
     }
-
+    
 //
 //    @Test
 //    public void testEventsTableExists() {
