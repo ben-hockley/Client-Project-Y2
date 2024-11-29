@@ -38,9 +38,9 @@ public class DatabaseTests {
     }
 
     @Test
-    public void testAdminTableExists() {
+    public void testUsersTableExists() {
         //Given
-        String sql = "SELECT COUNT(*) FROM admin";
+        String sql = "SELECT COUNT(*) FROM users";
         //When
         int count = jdbcTemplate.queryForObject(sql, Integer.class);
         //Then
@@ -68,9 +68,9 @@ public class DatabaseTests {
     }
 
     @Test
-    public void testAdminTableHasBeenPopulated(){
+    public void testUsersTableHasBeenPopulated(){
         //Given
-        String sql = "SELECT adminUserName FROM admin WHERE adminId = 1";
+        String sql = "SELECT username FROM users WHERE id = 1";
         //When
         String name = jdbcTemplate.queryForObject(sql, String.class);
         //Then
