@@ -20,7 +20,7 @@ create table if not exists events(
     event_location varchar(255) not null
 );
 
-drop table if exists user;
+drop table if exists users;
 create table if not exists users(
     id int auto_increment primary key,
     username varchar(255) not null,
