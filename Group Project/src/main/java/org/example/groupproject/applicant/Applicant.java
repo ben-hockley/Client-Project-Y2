@@ -12,5 +12,6 @@ public record Applicant  (Long id,
                           String oldJobRole,
                           Integer eventId,
                           Boolean isInternal,
-                          LocalDate startDate){
+                          LocalDate startDate,
+                          String cvFilePath){
 }

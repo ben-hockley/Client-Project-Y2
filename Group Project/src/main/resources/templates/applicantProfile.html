@@ -2,19 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${applicant.name()} + '\'s profile'"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/stylesheet.css">
+    <title th:text="${applicant.name()} + '\'s Profile'"></title>
 </head>
 <body>
-<h1 th:text="${applicant.name()}"></h1>
-<img height="250px" width="250px" src="">
-<p th:text="${applicant.isInternal().toString()} + ' applicant.'"></p>
-<p th:text="'Email: ' + ${applicant.email()}"></p>
-<p th:text="'Phone: ' + ${applicant.phone()}"></p>
-<p th:text="'Application Date: '+ ${applicant.startDate().toString()}"></p>
-<p th:text="'Location: ' + ${applicant.location().toString()}"></p>
-<h3>CV</h3>
-<h3>Cover Letter</h3>
-<h3>Application History</h3>
-<a href="/applicants/all">Back to home</a>
+<div class="container my-5">
+    <div class="card mb-4">
+        <div class="card-header text-center py-4">
+            <h1 class="card-title mb-0" th:text="${applicant.name()}"></h1>
+            <small th:text="${applicant.isInternal() ? 'Internal Applicant' : 'External Applicant'}"></small>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Contact Details</h2>
+                    <p><strong>Email:</strong> <span th:text="${applicant.email()}"></span></p>
+                    <p><strong>Phone:</strong> <span th:text="${applicant.phone()}"></span></p>
+                    <p><strong>Location:</strong> <span th:text="${applicant.location()}"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Application Details</h2>
+                    <p><strong>Application Date:</strong> <span th:text="${applicant.startDate()}"></span></p>
+                    <p><strong>Current Job Role:</strong> <span th:text="${applicant.currentJobRole()}"></span></p>
+                    <p><strong>Previous Job Role(s):</strong> <span th:text="${applicant.oldJobRole()}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="mb-0">CV</h3>
+        </div>
+        <div class="card-body">
+            <div th:if="${applicant.cvFilePath() != null}">
+                <p>View the applicant's CV:</p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cvContent"
+                        aria-expanded="false" aria-controls="cvContent">
+                    Toggle CV
+                </button>
+                <div class="collapse mt-3" id="cvContent">
+                    <iframe th:src="@{/cv/{id}(id=${applicant.id()})}"
+                            onload="this.style.display='block';
+                            document.getElementById('cvError').style.display='none';"
+                            onerror="this.style.display='none';
+                            document.getElementById('cvError').style.display='block';"
+                            style="width:100%; height:700px; border:1px solid #ddd; display:none;"></iframe>
+                    <p id="cvError" class="text-danger" style="display:none;"
+                    >Unable to load the CV. Please check the file or contact support.</p>
+                </div>
+            </div>
+            <div th:if="${applicant.cvFilePath() == null}">
+                <p class="text-danger">This applicant does not currently have a CV uploaded.</p>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="mb-0">Cover Letter</h3>
+        </div>
+        <div class="card-body">
+            <p>Applicant's cover letter will be visible here</p>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="mb-0">Contact History</h3>
+        </div>
+        <div class="card-body">
+            <p>Contact log will be visible here.</p>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="/applicants/all" class="btn btn-secondary">Back to All Applicants</a>
+    </div>
+</div>
 </body>
 </html>

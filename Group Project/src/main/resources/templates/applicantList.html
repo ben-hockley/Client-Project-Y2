@@ -11,13 +11,13 @@
 
     <h1>All Applicants</h1>
     <form th:action="@{/applicants/all}" method="get" class="filter-form" th:object="${filter}">
-        <h3>Keyword Search:</h3>
+        <h2>Keyword Search:</h2>
         <label for="searchQuery">Search by Name or Previous Job:</label>
         <input class="form-control" id="searchQuery" name="searchQuery" th:value="${searchQuery}"
                placeholder="Enter an applicant name or Previous Job title">
         <div class="text-danger" th:if="${#fields.hasErrors('searchQuery')}" th:errors="*{searchQuery}"></div>
         <div class="mb-3">
-            <h3>Filters:</h3>
+            <h2>Filters:</h2>
         </div>
         <label class="form-label filterFormLabel" for="event">Event:</label>
         <select class="form-select filterFormLabel" id="event" th:field="*{eventId}">
