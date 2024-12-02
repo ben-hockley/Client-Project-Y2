@@ -1,7 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body{
-    font-family: "Roboto", sans-serif
+    font-family: "Roboto", sans-serif;
+    background-color: #f7f9fc
+}
+
+h1{
+    color: #1b3a57;
+}
+h2{
+    color: #1b3a57;
+}
+h3{
+    color: white;
 }
 
 .applicantColumn{
@@ -16,10 +27,11 @@ body{
     flex-direction: column;
     margin: 10px;
     width: auto;
-    background-color:  #ebf1f4;
+    background-color:  #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
 }
 
 
@@ -27,7 +39,7 @@ body{
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    color: inherit;
+    color: #1b3a57;
 }
 
 .applicantLink:hover {
@@ -37,12 +49,181 @@ body{
 .btnAddApplicants{
     float: right;
     margin: 10px;
-    background-color:  #ebf1f4;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    background-color:  #3b6ca5;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
     border-radius: 10px;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
 .btnAddApplicants:hover{
-    background-color: #d0e4f1;
+    background-color: #2a5a84;
+    color: white;
 }
+
+.filterFormLabel{
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: bold;
+    color: #1b3a57;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.filter-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input {
+    width: 300px;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter-form {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-form select {
+    margin-bottom: 10px;
+}
+.filterApplyButton{
+    display: inline-block;
+    margin-left: 5px;
+    background-color:  #3b6ca5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.filterApplyButton:hover{
+    background-color: #005b91;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #1b3a57;
+    color: white;
+}
+
+.table td {
+    color: #1b3a57;
+}
+
+a {
+    text-decoration: none;
+    color: #0079c1;
+}
+
+a:hover {
+    color: #005b91;
+}
+/* Card Styling */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+}
+
+.card-header {
+    background-color: #003087;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 20px;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+.row .card {
+    height: 100%;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #f1f1f1;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.list-group-item strong {
+    font-weight: 600;
+    color: #003087;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form h5 {
+    color: #003087;
+    font-weight: bold;
+}
+
+
+
+.btn-primary {
+    background-color: #0072ce;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #005b91;
+    color: white;
+}
+
+

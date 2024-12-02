@@ -1,6 +1,8 @@
 package org.example.groupproject.applicant;
 
-import org.example.groupproject.user.User;
+import org.example.groupproject.filter.Filter;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,14 +11,63 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 @RequestMapping("/applicants")
 @RestController
 public class ApplicantController {
 
     private final ApplicantRepository applicantRepository;
+    private final EventService eventService;
 
-    public ApplicantController(ApplicantRepository applicantRepository) {
+
+    public ApplicantController(ApplicantRepository applicantRepository, EventService eventService) {
         this.applicantRepository = applicantRepository;
+        this.eventService = eventService;
+    }
+    @GetMapping("/all")
+    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView("applicantList");
+
+        Integer eventId = filter.getEventId();
+        Boolean isInternal = filter.getIsInternal();
+        Location location = filter.getLocation();
+        String searchQuery = filter.getSearchQuery();
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("filter", filter);
+            modelAndView.addObject("searchQuery", searchQuery);
+            modelAndView.addObject("events", eventService.getAllEvents());
+            modelAndView.addObject("locations", List.of(Location.values()));
+            modelAndView.addObject("applicants", List.of());
+            return modelAndView;
+        }
+
+        // If isInternal is false, reset it to null, so all applicants are visible
+        if (isInternal != null && !isInternal) {
+            isInternal = null;
+        }
+
+        List<Applicant> applicants;
+        // If no filters are applied, show all applicants
+        if ((searchQuery == null || searchQuery.trim().isEmpty()) && eventId == null && isInternal == null &&
+                (location == null || location.name().equalsIgnoreCase("All"))) {
+            applicants = applicantRepository.findAll();
+        // If filters are applied, show applicants based on filters
+        } else {
+            applicants = applicantRepository.findWithFilters(searchQuery, eventId, isInternal, location);
+        }
+
+        List<Event> events = eventService.getAllEvents();
+        List<Location> locations = List.of(Location.values());
+        modelAndView.addObject("filter", filter);
+        modelAndView.addObject("searchQuery", searchQuery);
+
+        modelAndView.addObject("applicants", applicants);
+        modelAndView.addObject("events", events);
+        modelAndView.addObject("locations", locations);
+        return modelAndView;
     }
 
     @GetMapping("/profile/{id}")
@@ -26,17 +77,6 @@ public class ApplicantController {
 
         ModelAndView modelAndView = new ModelAndView("applicantProfile"); // templates/gameDetails.html
         modelAndView.addObject("applicant", applicant);
-        return modelAndView;
-    }
-
-    @GetMapping("/all")
-    public ModelAndView viewAllApplicants(User activeUser) {
-        ModelAndView modelAndView = new ModelAndView("applicantList");
-
-        List<Applicant> applicants = applicantRepository.findAll();
-
-        modelAndView.addObject("applicants", applicants);
-        modelAndView.addObject("activeUser", activeUser);
         return modelAndView;
     }
 

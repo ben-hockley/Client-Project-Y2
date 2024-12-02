@@ -2,12 +2,12 @@ package org.example.groupproject.Full;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -26,6 +26,7 @@ public class DatabaseTests {
         assertTrue(count > 0);
     }
 
+
     @Test
     public void testEventsTableExists() {
         //Given
@@ -37,9 +38,9 @@ public class DatabaseTests {
     }
 
     @Test
-    public void testAdminTableExists() {
+    public void testUsersTableExists() {
         //Given
-        String sql = "SELECT COUNT(*) FROM admin";
+        String sql = "SELECT COUNT(*) FROM users";
         //When
         int count = jdbcTemplate.queryForObject(sql, Integer.class);
         //Then
@@ -59,17 +60,17 @@ public class DatabaseTests {
     @Test
     public void testEventsTableHasBeenPopulated(){
         //Given
-        String sql = "SELECT eventName FROM events WHERE eventId = 1";
+        String sql = "SELECT event_name FROM events WHERE eventid = 1";
         //When
         String name = jdbcTemplate.queryForObject(sql, String.class);
         //Then
-        assertEquals("Test Event", name);
+        assertEquals("Test Event 1", name);
     }
 
     @Test
-    public void testAdminTableHasBeenPopulated(){
+    public void testUsersTableHasBeenPopulated(){
         //Given
-        String sql = "SELECT adminUserName FROM admin WHERE adminId = 1";
+        String sql = "SELECT username FROM users WHERE id = 1";
         //When
         String name = jdbcTemplate.queryForObject(sql, String.class);
         //Then
@@ -79,8 +80,8 @@ public class DatabaseTests {
     @Test
     public void testAddApplicantToApplicantsTable() {
         //Given
-        String insertSql = "INSERT INTO applicants (name, email, phone, location, currentJobRole, oldJobRole," +
-                " eventID, isInternal, startDate, cvFilePath) " +
+        String insertSql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role," +
+                " eventid, is_internal, start_date, cv_file_path) " +
                 "VALUES ('New User', 'newuser@test.com', '0987654321', 'New Location', 'NewJob', " +
                 "'OldJob1, OldJob2', 1, true, '2022-01-01', 'path/to/cv')";
         jdbcTemplate.update(insertSql);
@@ -94,7 +95,7 @@ public class DatabaseTests {
     @Test
     public void testAddEventToEventsTable() {
         //Given
-        String insertSql = "INSERT INTO events (eventName, eventLocation) " +
+        String insertSql = "INSERT INTO events (event_name, event_location) " +
                 "VALUES ('New Event', 'New Location')";
         jdbcTemplate.update(insertSql);
 
@@ -106,14 +107,14 @@ public class DatabaseTests {
     }
 
     @Test
-    public void testAddAdminToAdminsTable() {
+    public void testAddAdminToUsersTable() {
         //Given
-        String insertSql = "INSERT INTO admin (adminUserName, adminEmail, adminPassword, isAdmin) " +
+        String insertSql = "INSERT INTO users (username, email, password, is_admin) " +
                 "VALUES ('New Admin','newadmin@test.com', 'password', true)";
         jdbcTemplate.update(insertSql);
 
         //When
-        String verifySql = "SELECT COUNT(*) FROM admin";
+        String verifySql = "SELECT COUNT(*) FROM users";
         int count = jdbcTemplate.queryForObject(verifySql, Integer.class);
         //Then
         assertTrue(count > 1);
@@ -122,12 +123,12 @@ public class DatabaseTests {
     @Test
     public void testGetEventFromAppicantsTable() {
         //Given
-        String sql1 = "SELECT eventID FROM applicants WHERE id = 1";
+        String sql1 = "SELECT eventid FROM applicants WHERE id = 1";
         String appEventId = jdbcTemplate.queryForObject(sql1, String.class);
         //When
-        String sql2 = "SELECT eventName FROM events WHERE eventId =" + appEventId;
+        String sql2 = "SELECT event_name FROM events WHERE eventid =" + appEventId;
         String name = jdbcTemplate.queryForObject(sql2, String.class);
         //Then
-        assertEquals("Test Event", name);
+        assertEquals("Test Event 1", name);
     }
 }

@@ -1,4 +1,4 @@
-package org.example.groupproject.user;
+package org.example.groupproject.applicant.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;

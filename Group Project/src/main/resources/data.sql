@@ -2,7 +2,7 @@ delete from applicants;
 delete from events;
 delete from users;
 
-insert into applicants (name, email, phone, location, currentJobRole, oldJobRole, eventID, isInternal, startDate, cvFilePath)
+insert into applicants (name, email, phone, location, current_job_role, old_job_role, eventID, is_internal, start_date, cv_file_path)
 values ('Test User','test@test.com','1234567890','Wales','TestOldJob1, TestOldJob2','Test Location',1,TRUE,'2021-01-01','TestCVPath'),
        ('Alice Johnson','alice.johnson@example.com','2345678901','Wales','Developer','Junior Developer',2,FALSE,'2022-02-01','AliceCVPath'),
        ('Bob Smith','bob.smith@example.com','3456789012','Wales','Manager','Assistant Manager',3,TRUE,'2022-03-01','BobCVPath'),
@@ -14,14 +14,14 @@ values ('Test User','test@test.com','1234567890','Wales','TestOldJob1, TestOldJo
        ('Hank Green','hank.green@example.com','9012345678','Wales','Scientist','Junior Scientist',1,TRUE,'2022-09-01','HankCVPath'),
        ('Ivy White','ivy.white@example.com','0123456789','Wales','Technician','Junior Technician',2,FALSE,'2022-10-01','IvyCVPath');
 
-insert into events (eventName, eventLocation)
+insert into events (event_name, event_location)
 values ('Test Event 1','Test Location 1'),
        ('Test Event 2','Test Location 2'),
       ('Test Event 3','Test Location 3'),
       ('Test Event 4','Test Location 4');
 
 
-insert into users (username, password, email, is_admin)
+insert into users (username, email, password, is_admin)
 values ('adminTest','adminTest@test.com','adminTest',FALSE);
 
 select * from users;

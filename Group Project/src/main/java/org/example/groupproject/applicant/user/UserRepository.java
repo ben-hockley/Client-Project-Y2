@@ -1,4 +1,4 @@
-package org.example.groupproject.user;
+package org.example.groupproject.applicant.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

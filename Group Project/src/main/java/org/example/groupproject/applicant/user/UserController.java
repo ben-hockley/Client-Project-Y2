@@ -1,4 +1,4 @@
-package org.example.groupproject.user;
+package org.example.groupproject.applicant.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

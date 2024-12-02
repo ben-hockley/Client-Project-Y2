@@ -1,4 +1,4 @@
-package org.example.groupproject.user;
+package org.example.groupproject.applicant.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

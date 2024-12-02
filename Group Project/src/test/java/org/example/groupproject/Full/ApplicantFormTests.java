@@ -1,7 +1,7 @@
 package org.example.groupproject.Full;
 
-import org.example.groupproject.event.Event;
-import org.example.groupproject.event.EventService;
+import org.example.groupproject.applicant.Event;
+import org.example.groupproject.applicant.EventService;
 import org.example.groupproject.applicant.ApplicantForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;

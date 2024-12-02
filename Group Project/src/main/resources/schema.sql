@@ -5,21 +5,21 @@ create table if not exists applicants (
     email varchar(255) not null,
     phone varchar(255) not null,
     location varchar(255),
-    currentJobRole varchar(255) not null,
-    oldJobRole varchar(255) not null,
-    eventID int,
-    isInternal boolean,
-    startDate date,
-    cvFilePath varchar(255)
+    current_job_role varchar(255) not null,
+    old_job_role varchar(255) not null,
+    eventid int,
+    is_internal boolean,
+    start_date date,
+    cv_file_path varchar(255)
 );
 
 drop table if exists events;
 create table if not exists events(
-    eventId int auto_increment primary key,
-    eventName varchar(255) not null,
-    eventLocation varchar(255) not null
+    eventid int auto_increment primary key,
+    event_name varchar(255) not null,
+    event_location varchar(255) not null
 );
-drop table if exists user;
+
 drop table if exists users;
 create table if not exists users(
     id int auto_increment primary key,
