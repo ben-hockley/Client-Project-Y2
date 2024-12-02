@@ -20,7 +20,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Contact Details</h3>
+                    <h2>Contact Details</h2>
                     <p><strong>Email:</strong> <span th:text="${applicant.email()}"></span></p>
                     <p><strong>Phone:</strong> <span th:text="${applicant.phone()}"></span></p>
                     <p><strong>Location:</strong> <span th:text="${applicant.location()}"></span></p>
@@ -30,7 +30,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Application Details</h3>
+                    <h2>Application Details</h2>
                     <p><strong>Application Date:</strong> <span th:text="${applicant.startDate()}"></span></p>
                     <p><strong>Current Job Role:</strong> <span th:text="${applicant.currentJobRole()}"></span></p>
                     <p><strong>Previous Job Role(s):</strong> <span th:text="${applicant.oldJobRole()}"></span></p>
@@ -43,9 +43,26 @@
             <h3 class="mb-0">CV</h3>
         </div>
         <div class="card-body">
-            <p>View or upload the applicant's CV:</p>
-            <a href="#" class="btn btn-primary">View CV</a>
-            <a href="#" class="btn btn-secondary">Upload CV</a>
+            <div th:if="${applicant.cvFilePath() != null}">
+                <p>View the applicant's CV:</p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cvContent"
+                        aria-expanded="false" aria-controls="cvContent">
+                    Toggle CV
+                </button>
+                <div class="collapse mt-3" id="cvContent">
+                    <iframe th:src="@{/cv/{id}(id=${applicant.id()})}"
+                            onload="this.style.display='block';
+                            document.getElementById('cvError').style.display='none';"
+                            onerror="this.style.display='none';
+                            document.getElementById('cvError').style.display='block';"
+                            style="width:100%; height:700px; border:1px solid #ddd; display:none;"></iframe>
+                    <p id="cvError" class="text-danger" style="display:none;"
+                    >Unable to load the CV. Please check the file or contact support.</p>
+                </div>
+            </div>
+            <div th:if="${applicant.cvFilePath() == null}">
+                <p class="text-danger">This applicant does not currently have a CV uploaded.</p>
+            </div>
         </div>
     </div>
     <div class="card mt-4">

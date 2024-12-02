@@ -8,6 +8,9 @@ body{
 h1{
     color: #1b3a57;
 }
+h2{
+    color: #1b3a57;
+}
 h3{
     color: white;
 }
@@ -222,3 +225,5 @@ form h5 {
     background-color: #005b91;
     color: white;
 }
+
+

@@ -24,7 +24,7 @@ public class ApplicantRepository {
 
     public Applicant findById(Integer id) {
         return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role,eventId," +
-                        "is_internal, start_date FROM applicants WHERE id = :id")
+                        "is_internal, start_date, cv_file_path FROM applicants WHERE id = :id")
                 .param("id", id)
                 .query(Applicant.class)
                 .single();
