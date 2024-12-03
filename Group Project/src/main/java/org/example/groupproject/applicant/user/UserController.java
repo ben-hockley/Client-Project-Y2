@@ -1,6 +1,7 @@
 package org.example.groupproject.applicant.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,13 +44,26 @@ public class UserController {
     }
 
     @GetMapping("/manageUsers")
-    public String manageUsers(Model model) {
+    public String manageUsers(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        if (!user.getIsAdmin()) {
+            model.addAttribute("error", "You must be an admin to access this page");
+            return "access_denied";
+        }
+
         model.addAttribute("users", userRepository.findAll());
         return "manage_users";
     }
 
     @GetMapping("/editUser/{id}")
-    public String editUser(Model model, @PathVariable Integer id) {
+    public String editUser(Model model, @PathVariable Integer id, Authentication authentication) {
+        String username = authentication.getName();
+        User activeUser = userRepository.findByUsername(username);
+        if (!activeUser.getIsAdmin()) {
+            model.addAttribute("error", "You must be an admin to access this page");
+            return "access_denied";
+        }
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
         return "edit_user";
