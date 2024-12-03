@@ -22,7 +22,10 @@ public class WebSecurityConfig {
             "/applicantForm",
             "importcsv",
             "import-csv",
-            "/cv/**"
+            "/cv/**",
+            "/manageUsers",
+            "/editUser/**",
+            "/updateUser/**",
     };
 
 
