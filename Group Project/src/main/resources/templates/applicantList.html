@@ -10,7 +10,6 @@
     <a href="/applicantForm" class="btnAddApplicants">Applicants Form</a>
 
     <h1>All Applicants</h1>
-    <h2 th:text="${user.getUsername()}"></h2>
     <form th:action="@{/applicants/all}" method="get" class="filter-form" th:object="${filter}">
         <h2>Keyword Search:</h2>
         <label for="searchQuery">Search by Name or Previous Job:</label>

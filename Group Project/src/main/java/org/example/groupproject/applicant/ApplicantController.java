@@ -65,8 +65,6 @@ public class ApplicantController {
         modelAndView.addObject("filter", filter);
         modelAndView.addObject("searchQuery", searchQuery);
 
-        modelAndView.addObject("user", user);
-
         modelAndView.addObject("applicants", applicants);
         modelAndView.addObject("events", events);
         modelAndView.addObject("locations", locations);
