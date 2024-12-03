@@ -10,7 +10,8 @@
 </head>
 <body>
     <a href="/applicantForm" class="btnAddApplicants">Applicants Form</a>
-
+    <a href="/applicantForm" class="btnAddApplicants">Manage Users</a>
+    <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
     <h1>All Applicants</h1>
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
