@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -43,6 +44,34 @@ public class UserController {
 
     @GetMapping("/manageUsers")
     public String manageUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "manage_users";
+    }
+
+    @GetMapping("/editUser/{id}")
+    public String editUser(Model model, @PathVariable Integer id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("user", user);
+        return "edit_user";
+    }
+
+    @PostMapping("/updateUser/{id}")
+    public String updateUser(@PathVariable Integer id, User user, Model model) {
+        User userToUpdate = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userToUpdate.setUsername(user.getUsername());
+
+        // If the password field is not empty, encrypt and update the password
+        if (user.getPassword().length() > 5) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            userToUpdate.setPassword(encodedPassword);
+        } else if (!user.getPassword().isEmpty()) {
+            model.addAttribute("error", "Password not updated, passwords must be at least 6 characters long");
+        }
+
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setIsAdmin(user.getIsAdmin());
+        userRepository.save(userToUpdate);
         model.addAttribute("users", userRepository.findAll());
         return "manage_users";
     }

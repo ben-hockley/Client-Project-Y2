@@ -10,7 +10,10 @@
 </head>
 <body>
     <a href="/applicantForm" class="btn btn-primary">Applicants Form</a>
+
+    <!-- This button only shows if logged-in user is an admin -->
     <span th:if="${sessionUser.isAdmin}"><a href="/manageUsers" class="btn btn-primary">Manage Users</a></span>
+
     <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
     <h1>All Applicants</h1>
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
