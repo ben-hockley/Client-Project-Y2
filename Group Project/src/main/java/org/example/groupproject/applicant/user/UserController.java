@@ -41,5 +41,11 @@ public class UserController {
         return "registration_success";
     }
 
+    @GetMapping("/manageUsers")
+    public String manageUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "manage_users";
+    }
+
 
 }
