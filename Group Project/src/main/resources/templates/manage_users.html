@@ -15,7 +15,8 @@
         <th scope="col">#</th>
         <th scope="col">Username</th>
         <th scope="col">Email</th>
-        <th scope="col">Is Admin</th>
+        <th scope="col">Admin</th>
+        <th scope="col">Edit</th>
     </tr>
 
     </thead>
@@ -26,6 +27,11 @@
             <td th:text="'Email: ' + ${user.email}"></td>
             <td>
                 <i th:class="${user.isAdmin} ? 'fa-solid fa-check' : 'fa-solid fa-xmark'"></i>
+            </td>
+            <td>
+                <span th:if="${not user.isAdmin}">
+                    <a href="#"><i class="fa-solid fa-pencil"></i></a>
+                </span>
             </td>
         </tr>
     </tbody>
