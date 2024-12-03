@@ -1,5 +1,6 @@
 package org.example.groupproject.applicant;
 
+import org.example.groupproject.applicant.user.User;
 import org.example.groupproject.filter.Filter;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ApplicantController {
         this.eventService = eventService;
     }
     @GetMapping("/all")
-    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult) {
+    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult, User user) {
 
         ModelAndView modelAndView = new ModelAndView("applicantList");
 
@@ -63,6 +64,8 @@ public class ApplicantController {
         List<Location> locations = List.of(Location.values());
         modelAndView.addObject("filter", filter);
         modelAndView.addObject("searchQuery", searchQuery);
+
+        modelAndView.addObject("user", user);
 
         modelAndView.addObject("applicants", applicants);
         modelAndView.addObject("events", events);
