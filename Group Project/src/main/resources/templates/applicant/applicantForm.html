@@ -16,7 +16,8 @@
             <h1>Applicant Form</h1>
         </div>
         <div class="card-body">
-            <form action="/applicantForm" method="post" th:object="${applicantForm}" enctype="multipart/form-data">
+            <form th:action="@{/applicantForm}" th:method="post" th:object="${applicantForm}" enctype="multipart/form-data">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
                 <div class="alert alert-danger" th:if="${errorMessage}">
                     <p th:text="${errorMessage}"></p>
                 </div>

@@ -15,6 +15,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    private final String[] ENDPOINTS_WHITELIST = {
+            "/applicants/**",
+            "/applicantForm",
+            "importcsv",
+            "import-csv",
+            "/cv/**"
+    };
+
+
     @Bean
     UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
@@ -40,7 +49,7 @@ public class WebSecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/applicants/all","/applicants/profile/{id}","/applicantForm","/importcsv").authenticated()
+                        auth.requestMatchers(ENDPOINTS_WHITELIST).authenticated()
                                 .anyRequest().permitAll()
                 )
                 .formLogin(login ->

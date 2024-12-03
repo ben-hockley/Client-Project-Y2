@@ -10,7 +10,8 @@
     <a href="/applicantForm" class="btnAddApplicants">Applicants Form</a>
 
     <h1>All Applicants</h1>
-    <form th:action="@{/applicants/all}" method="get" class="filter-form" th:object="${filter}">
+    <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
         <h2>Keyword Search:</h2>
         <label for="searchQuery">Search by Name or Previous Job:</label>
         <input class="form-control" id="searchQuery" name="searchQuery" th:value="${searchQuery}"
