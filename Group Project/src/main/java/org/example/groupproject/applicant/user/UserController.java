@@ -90,5 +90,19 @@ public class UserController {
         return "manage_users";
     }
 
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable Integer id, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        User activeUser = userRepository.findByUsername(username);
+        if (!activeUser.getIsAdmin()) {
+            model.addAttribute("error", "You must be an admin to access this page");
+            return "access_denied";
+        }
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userRepository.delete(user);
+        model.addAttribute("users", userRepository.findAll());
+        return "manage_users";
+    }
+
 
 }

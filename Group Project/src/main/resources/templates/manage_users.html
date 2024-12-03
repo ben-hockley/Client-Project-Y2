@@ -34,7 +34,8 @@
             </td>
             <td>
                 <span th:if="${not user.isAdmin}">
-                    <a th:href="'/editUser/' + ${user.id}"><i class="fa-solid fa-pencil"></i></a>
+                    <a th:href="@{/editUser/{id}(id=${user.id})}"><i class="fa-solid fa-pencil"></i></a>
+                    <a th:href="@{/deleteUser/{id}(id=${user.id})}"><i class="fa-solid fa-trash"></i></a>
                 </span>
             </td>
         </tr>
