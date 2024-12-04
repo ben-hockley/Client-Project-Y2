@@ -1,8 +1,13 @@
 package org.example.groupproject.applicant;
 
+import org.example.groupproject.applicant.user.User;
 import org.example.groupproject.filter.Filter;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -22,7 +27,7 @@ public class ApplicantController {
         this.eventService = eventService;
     }
     @GetMapping("/all")
-    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult) {
+    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult, User user) {
 
         ModelAndView modelAndView = new ModelAndView("applicantList");
 
@@ -67,7 +72,7 @@ public class ApplicantController {
     }
 
     @GetMapping("/profile/{id}")
-    public ModelAndView getGame(@PathVariable Integer id){
+    public ModelAndView viewProfile(@PathVariable Integer id){
 
         Applicant applicant = applicantRepository.findById(id);
 
