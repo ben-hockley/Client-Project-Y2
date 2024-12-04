@@ -4,7 +4,6 @@ import org.example.groupproject.applicant.user.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -22,7 +21,10 @@ public class WebSecurityConfig {
             "/applicantForm",
             "importcsv",
             "import-csv",
-            "/cv/**"
+            "/cv/**",
+            "/manageUsers",
+            "/editUser/**",
+            "/updateUser/**",
     };
 
 
@@ -50,7 +52,7 @@ public class WebSecurityConfig {
 
         http.authenticationProvider(authenticationProvider());
         
-        http.headers(header->{header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);});
+        http.headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         //http.headers(header->{header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);});
 
         http.authorizeHttpRequests(auth ->
