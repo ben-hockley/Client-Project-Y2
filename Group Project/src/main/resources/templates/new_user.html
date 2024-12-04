@@ -16,11 +16,11 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
+        <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required minlength="3" maxlength="256">
     </div>
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
+        <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required minlength="6" maxlength="256">
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
