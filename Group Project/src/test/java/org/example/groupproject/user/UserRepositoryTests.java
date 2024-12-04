@@ -10,13 +10,16 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.annotation.Rollback;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-public class UserRepositoryTests {
+public class
+UserRepositoryTests {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -25,6 +28,9 @@ public class UserRepositoryTests {
     private UserRepository repo;
     @Autowired
     private JdbcClient jdbcClient;
+
+    @MockBean
+    private JavaMailSender mailSender;
 
     // test methods go below
 
