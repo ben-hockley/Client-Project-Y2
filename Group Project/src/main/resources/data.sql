@@ -3,7 +3,7 @@ delete from events;
 delete from users;
 
 insert into applicants (name, email, phone, location, current_job_role, old_job_role, eventID, is_internal, start_date, cv_file_path)
-values ('Test User','test@test.com','1234567890','Wales','TestOldJob1, TestOldJob2','Test Location',1,TRUE,'2021-01-01','TestCVPath'),
+values ('Test User','MoicoT@cardiff.ac.uk','1234567890','Wales','TestOldJob1, TestOldJob2','Test Location',1,TRUE,'2021-01-01','TestCVPath'),
        ('Alice Johnson','alice.johnson@example.com','2345678901','Wales','Developer','Junior Developer',2,FALSE,'2022-02-01','AliceCVPath'),
        ('Bob Smith','bob.smith@example.com','3456789012','Wales','Manager','Assistant Manager',3,TRUE,'2022-03-01','BobCVPath'),
        ('Charlie Brown','charlie.brown@example.com','4567890123','Wales','Analyst','Junior Analyst',4,FALSE,'2022-04-01','CharlieCVPath'),
