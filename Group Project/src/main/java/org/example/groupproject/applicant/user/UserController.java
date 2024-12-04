@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class UserController {
 
@@ -74,6 +76,13 @@ public class UserController {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userToUpdate.setUsername(user.getUsername());
 
+        if (userRepository.findAll().stream().anyMatch(u -> u.getUsername().equals(user.getUsername()) && !Objects.equals(u.getId(), id))) {
+            model.addAttribute("error", "Username already taken");
+            return "edit_user";
+        } else if (userRepository.findAll().stream().anyMatch(u -> u.getEmail().equals(user.getEmail()) && !Objects.equals(u.getId(), id))) {
+            model.addAttribute("error", "Email already taken");
+            return "edit_user";
+        }
         // If the password field is not empty, encrypt and update the password
         if (user.getPassword().length() > 5) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -121,6 +130,9 @@ public class UserController {
         if (userRepository.findAll().stream().anyMatch(u -> u.getUsername().equals(user.getUsername()))) {
             model.addAttribute("error", "Username already taken");
             return "new_user";
+        } else if (userRepository.findAll().stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))) {
+            model.addAttribute("error", "Email already taken");
+            return "new_user";
         }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -129,6 +141,4 @@ public class UserController {
         model.addAttribute("users", userRepository.findAll());
         return "manage_users";
     }
-
-
 }
