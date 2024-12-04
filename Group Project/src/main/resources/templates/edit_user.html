@@ -20,11 +20,11 @@
     </div>
     <div class="mb-3">
         <label for="password" class="form-label">New Password (Optional)</label>
-        <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+        <input type="password" class="form-control" id="password" name="password" th:field="*{password}" maxlength="256">
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" th:value="${user.email}" th:field="*{email}">
+        <input type="email" class="form-control" id="email" name="email" th:value="${user.email}" th:field="*{email}" required minlength="2" maxlength="256">
     </div>
     <div class="mb-3">
         <label for="isAdmin" class="form-label">Admin</label>
