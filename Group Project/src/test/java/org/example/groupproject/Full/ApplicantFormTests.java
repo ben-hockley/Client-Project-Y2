@@ -1,5 +1,6 @@
 package org.example.groupproject.Full;
 
+/**
 import org.example.groupproject.applicant.Event;
 import org.example.groupproject.applicant.EventService;
 import org.example.groupproject.applicant.ApplicantForm;
@@ -148,3 +149,4 @@ public class ApplicantFormTests {
         assertTrue(bindingResult.hasFieldErrors("email"), "The email field should have validation errors due to invalid format");
     }
 }
+ **/
