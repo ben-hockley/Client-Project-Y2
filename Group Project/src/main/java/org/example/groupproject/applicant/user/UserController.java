@@ -95,11 +95,37 @@ public class UserController {
         String username = authentication.getName();
         User activeUser = userRepository.findByUsername(username);
         if (!activeUser.getIsAdmin()) {
-            model.addAttribute("error", "You must be an admin to access this page");
+            model.addAttribute("error", "You must be an admin to delete users");
             return "access_denied";
         }
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
+        model.addAttribute("users", userRepository.findAll());
+        return "manage_users";
+    }
+
+    @GetMapping("/newUser")
+    public String newUser(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        User activeUser = userRepository.findByUsername(username);
+        if (!activeUser.getIsAdmin()) {
+            model.addAttribute("error", "You must be an admin to create new users");
+            return "access_denied";
+        }
+        model.addAttribute("user", new User());
+        return "new_user";
+    }
+
+    @PostMapping("/createUser")
+    public String createUser(User user, Model model) {
+        if (userRepository.findAll().stream().anyMatch(u -> u.getUsername().equals(user.getUsername()))) {
+            model.addAttribute("error", "Username already taken");
+            return "new_user";
+        }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
         model.addAttribute("users", userRepository.findAll());
         return "manage_users";
     }
