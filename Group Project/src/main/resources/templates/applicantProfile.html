@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/stylesheet.css">
     <title th:text="${applicant.name()} + '\'s Profile'"></title>
 </head>
+<!-- Applicant's profile page where the recruitment team can see the applicant details and view their CV or upload one
+if the applicants CV cannot be found-->
 <body>
 <div class="container my-5">
     <div class="card mb-4">
@@ -21,12 +23,59 @@
             <div class="card">
                 <div class="card-body">
                     <h2>Contact Details</h2>
-                    <p><strong>Email:</strong> <span th:text="${applicant.email()}"></span></p>
+                    <p><strong>Email:</strong> <span id="applicantEmail" th:text="${applicant.email()}"></span></p>
                     <p><strong>Phone:</strong> <span th:text="${applicant.phone()}"></span></p>
                     <p><strong>Location:</strong> <span th:text="${applicant.location()}"></span></p>
+
+                    <div class="contactApplicant">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal">Contact Applicant</button>
+                    </div>
+
+                    <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="emailModalLabel">Send Email to Applicant</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="emailForm">
+                                        <div class="mb-3">
+                                            <label for="subject" class="form-label">Subject</label>
+                                            <input type="text" class="form-control" id="subject" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message" class="form-label">Message</label>
+                                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Send Email</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const emailForm = document.getElementById('emailForm');
+
+                            emailForm.addEventListener('submit', function (event) {
+                                event.preventDefault();
+
+                                const subject = document.getElementById('subject').value;
+                                const message = document.getElementById('message').value;
+                                const email = document.getElementById('applicantEmail').innerText;
+
+                                const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+                                window.location.href = mailtoLink;
+                            });
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -39,29 +88,50 @@
         </div>
     </div>
     <div class="card mt-4">
-        <div class="card-header">
+        <div class="card-header text-center">
             <h3 class="mb-0">CV</h3>
         </div>
         <div class="card-body">
-            <div th:if="${applicant.cvFilePath() != null}">
-                <p>View the applicant's CV:</p>
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cvContent"
-                        aria-expanded="false" aria-controls="cvContent">
-                    Toggle CV
-                </button>
+            <div th:if="${successMessage}" class="alert alert-success text-center">
+                <p th:text="${successMessage}"></p>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger text-center">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div th:if="${applicant.cvFilePath() != null && #strings.contains(applicant.cvFilePath(), '\')}">
+                <p class="mb-3">View the applicant's CV:</p>
+                <div class="d-flex justify-content-start align-items-center mb-3">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cvContent"
+                            aria-expanded="false" aria-controls="cvContent">
+                        View CV
+                    </button>
+                </div>
                 <div class="collapse mt-3" id="cvContent">
                     <iframe th:src="@{/cv/{id}(id=${applicant.id()})}"
-                            onload="this.style.display='block';
-                            document.getElementById('cvError').style.display='none';"
-                            onerror="this.style.display='none';
-                            document.getElementById('cvError').style.display='block';"
-                            style="width:100%; height:700px; border:1px solid #ddd; display:none;"></iframe>
-                    <p id="cvError" class="text-danger" style="display:none;"
-                    >Unable to load the CV. Please check the file or contact support.</p>
+                            onload="this.style.display='block'; document.getElementById('cvError')
+                            .style.display='none';"
+                            onerror="this.style.display='none'; document.getElementById('cvError')
+                            .style.display='block';"
+                            style="width:100%; height:700px; border:1px solid #ddd; display:none;">
+                    </iframe>
+                    <p id="cvError" class="text-danger mt-2" style="display:none;">
+                        Unable to load the CV. Please check the file or contact support.
+                    </p>
                 </div>
             </div>
-            <div th:if="${applicant.cvFilePath() == null}">
-                <p class="text-danger">This applicant does not currently have a CV uploaded.</p>
+            <div th:if="${applicant.cvFilePath() == null || !#strings.contains(applicant.cvFilePath(), '\')}">
+                <p class="text-danger mb-3">This applicant does not currently have a CV uploaded.</p>
+                <form th:action="@{/cv/upload}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="applicantId" th:value="${applicant.id()}"/>
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <input class="form-control" id="cv" name="cv" type="file" required/>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" type="submit">Upload CV</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
