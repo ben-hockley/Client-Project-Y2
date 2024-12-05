@@ -37,7 +37,7 @@ public class ApplicantFormService {
     public Applicant findApplicantById(Long id) {
         String sql = "SELECT id, name, email, phone, location, current_job_role, old_job_role, eventid, " +
                 "is_internal, start_date, cv_file_path FROM applicants WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) ->
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
                 new Applicant(
                         rs.getLong("id"),
                         rs.getString("name"),
