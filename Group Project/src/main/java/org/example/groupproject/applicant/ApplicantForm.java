@@ -64,4 +64,6 @@ public class ApplicantForm {
     private String vacancyAppliedFor;
 
     private MultipartFile cv;
+
+    private boolean newsLetterSub;
 }

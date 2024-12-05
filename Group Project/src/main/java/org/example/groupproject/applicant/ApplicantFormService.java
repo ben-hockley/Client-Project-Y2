@@ -4,8 +4,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ApplicantFormService {
@@ -32,5 +30,11 @@ public class ApplicantFormService {
                 applicantForm.getIsInternal(),
                 LocalDate.now(),
                 cvFilePath);
+
+        if (applicantForm.isNewsLetterSub()) {
+            String newsletterSql = "INSERT INTO newsletter (email) VALUES (?)"; // Use 'email' column
+            jdbcTemplate.update(newsletterSql, applicantForm.getEmail());
+        }
+
     }
 }

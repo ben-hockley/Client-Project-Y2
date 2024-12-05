@@ -11,6 +11,7 @@ create table if not exists applicants (
     is_internal boolean,
     start_date date,
     cv_file_path varchar(255)
+
 );
 
 drop table if exists events;
@@ -27,4 +28,13 @@ create table if not exists users(
     password varchar(255) not null,
     email varchar(255) not null,
     is_admin boolean not null
-) engine=InnoDB;
+);
+
+-- Drop the table if it exists
+drop table if exists newsletter;
+create table if not exists newsletter (
+    email VARCHAR(255)
+)engine=InnoDB;
+
+
+

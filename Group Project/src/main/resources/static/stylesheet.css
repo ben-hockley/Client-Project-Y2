@@ -226,4 +226,94 @@ form h5 {
     color: white;
 }
 
+/* Modal Wrapper */
+.modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Box */
+.modal {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header {
+    background: #f1f1f1;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-header h5 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 16px;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #f1f1f1;
+    border-top: 1px solid #ddd;
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn.close {
+    background: #ddd;
+    color: #333;
+}
+
+.btn.save {
+    background-color:  #3b6ca5;
+    color: white;
+}
+
+/* Open Modal Button */
+.open-modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color:  #3b6ca5;
+    color: white;
+    cursor: pointer;
+}
+
+
 

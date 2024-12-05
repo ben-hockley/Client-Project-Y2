@@ -52,7 +52,8 @@ public class ApplicantFormController {
     // Processing the applicant form
     @PostMapping("/applicantForm")
     public ModelAndView processApplicantForm(@Valid @ModelAttribute ApplicantForm applicantForm,
-                                             BindingResult bindingResult) {
+                                             BindingResult bindingResult)
+            {
 
         // Ensuring a CV is uploaded
         if (applicantForm.getCv() == null || applicantForm.getCv().isEmpty()) {

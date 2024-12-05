@@ -5,9 +5,47 @@
     <meta charset="UTF-8">
     <title>All Applicants</title>
     <link rel="stylesheet" href="/stylesheet.css">
-</head>
+    </head>
 <body>
     <a href="/applicantForm" class="btnAddApplicants">Applicants Form</a>
+
+    <div class="modal-wrapper" id="modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h5>Send Email To All</h5>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div>
+                        <label class="form-check-label" for="subject">Subject: </label>
+                        <input class="form-check-input" id="subject" name="subject" type="textbox">
+                    </div>
+                    <div>
+                        <label class="form-check-label" for="body">Body: </label>
+                        <input class="form-check-input" id="body" name="body" type="textbox">
+                    </div>
+                    <div>
+                        <label class="form-label" for="newsLetterSub">Upload Newsletter: </label>
+                        <input class="form-control" id="newsLetterSub" name="newsletter" type="file"/>
+                        <div class="text-danger"></div>
+                    </div>
+
+                    <label class="form-check-label" for="sendToAll">Send as a newsletter</label>
+                    <input class="form-check-input" id="sendToAll" name="sendToAll"  type="checkbox"/>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn close" onclick="closeModal()">Close</button>
+                <button class="btn save">Open Outlook</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trigger Button -->
+    <button class="btnAddApplicants" onclick="openModal()">Send Newsletter</button>
+
 
     <h1>All Applicants</h1>
     <form th:action="@{/applicants/all}" method="get" class="filter-form" th:object="${filter}">
@@ -55,5 +93,7 @@
         </tr>
         </tbody>
     </table>
+    <script src="/modal.js"></script>
+
 </body>
 </html>

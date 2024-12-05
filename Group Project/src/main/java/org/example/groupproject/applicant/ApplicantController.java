@@ -66,6 +66,8 @@ public class ApplicantController {
         return modelAndView;
     }
 
+
+
     @GetMapping("/profile/{id}")
     public ModelAndView getGame(@PathVariable Integer id){
 
@@ -75,5 +77,7 @@ public class ApplicantController {
         modelAndView.addObject("applicant", applicant);
         return modelAndView;
     }
+
+
 
 }
