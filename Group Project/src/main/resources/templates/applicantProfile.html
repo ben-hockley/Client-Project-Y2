@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/stylesheet.css">
     <title th:text="${applicant.name()} + '\'s Profile'"></title>
 </head>
+<!-- Applicant's profile page where the recruitment team can see the applicant details and view their CV or upload one
+if the applicants CV cannot be found-->
 <body>
 <div class="container my-5">
     <div class="card mb-4">
@@ -86,29 +88,50 @@
         </div>
     </div>
     <div class="card mt-4">
-        <div class="card-header">
+        <div class="card-header text-center">
             <h3 class="mb-0">CV</h3>
         </div>
         <div class="card-body">
-            <div th:if="${applicant.cvFilePath() != null}">
-                <p>View the applicant's CV:</p>
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cvContent"
-                        aria-expanded="false" aria-controls="cvContent">
-                    Toggle CV
-                </button>
+            <div th:if="${successMessage}" class="alert alert-success text-center">
+                <p th:text="${successMessage}"></p>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger text-center">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div th:if="${applicant.cvFilePath() != null && #strings.contains(applicant.cvFilePath(), '\')}">
+                <p class="mb-3">View the applicant's CV:</p>
+                <div class="d-flex justify-content-start align-items-center mb-3">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cvContent"
+                            aria-expanded="false" aria-controls="cvContent">
+                        View CV
+                    </button>
+                </div>
                 <div class="collapse mt-3" id="cvContent">
                     <iframe th:src="@{/cv/{id}(id=${applicant.id()})}"
-                            onload="this.style.display='block';
-                            document.getElementById('cvError').style.display='none';"
-                            onerror="this.style.display='none';
-                            document.getElementById('cvError').style.display='block';"
-                            style="width:100%; height:700px; border:1px solid #ddd; display:none;"></iframe>
-                    <p id="cvError" class="text-danger" style="display:none;"
-                    >Unable to load the CV. Please check the file or contact support.</p>
+                            onload="this.style.display='block'; document.getElementById('cvError')
+                            .style.display='none';"
+                            onerror="this.style.display='none'; document.getElementById('cvError')
+                            .style.display='block';"
+                            style="width:100%; height:700px; border:1px solid #ddd; display:none;">
+                    </iframe>
+                    <p id="cvError" class="text-danger mt-2" style="display:none;">
+                        Unable to load the CV. Please check the file or contact support.
+                    </p>
                 </div>
             </div>
-            <div th:if="${applicant.cvFilePath() == null}">
-                <p class="text-danger">This applicant does not currently have a CV uploaded.</p>
+            <div th:if="${applicant.cvFilePath() == null || !#strings.contains(applicant.cvFilePath(), '\')}">
+                <p class="text-danger mb-3">This applicant does not currently have a CV uploaded.</p>
+                <form th:action="@{/cv/upload}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="applicantId" th:value="${applicant.id()}"/>
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <input class="form-control" id="cv" name="cv" type="file" required/>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" type="submit">Upload CV</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
