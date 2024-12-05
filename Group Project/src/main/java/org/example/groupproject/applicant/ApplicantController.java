@@ -1,8 +1,16 @@
 package org.example.groupproject.applicant;
 
+import org.example.groupproject.applicant.user.User;
+import org.example.groupproject.applicant.user.UserRepository;
 import org.example.groupproject.filter.Filter;
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -15,14 +23,16 @@ public class ApplicantController {
 
     private final ApplicantRepository applicantRepository;
     private final EventService eventService;
+    private final UserRepository userRepository;
 
 
-    public ApplicantController(ApplicantRepository applicantRepository, EventService eventService) {
+    public ApplicantController(ApplicantRepository applicantRepository, EventService eventService, UserRepository userRepository) {
         this.applicantRepository = applicantRepository;
         this.eventService = eventService;
+        this.userRepository = userRepository;
     }
     @GetMapping("/all")
-    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult) {
+    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult, Authentication authentication) {
 
         ModelAndView modelAndView = new ModelAndView("applicantList");
 
@@ -60,6 +70,15 @@ public class ApplicantController {
         modelAndView.addObject("filter", filter);
         modelAndView.addObject("searchQuery", searchQuery);
 
+        String username = authentication.getName();
+        System.out.println("username: " + username);
+        User sessionUser = userRepository.findByUsername(username);
+
+        System.out.println("user id:" + sessionUser.getId());
+        System.out.println("username: " + sessionUser.getUsername());
+        System.out.println("email: " + sessionUser.getEmail());
+
+        modelAndView.addObject("sessionUser", sessionUser);
         modelAndView.addObject("applicants", applicants);
         modelAndView.addObject("events", events);
         modelAndView.addObject("locations", locations);
@@ -67,7 +86,7 @@ public class ApplicantController {
     }
 
     @GetMapping("/profile/{id}")
-    public ModelAndView getGame(@PathVariable Integer id){
+    public ModelAndView viewProfile(@PathVariable Integer id){
 
         Applicant applicant = applicantRepository.findById(id);
 

@@ -4,18 +4,14 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-
 @Repository
 public class ApplicantRepository {
-    private final JdbcClient jdbcClient;
 
+    private final JdbcClient jdbcClient;
     public ApplicantRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
-
     public List<Applicant> findAll() {
         return jdbcClient.sql("SELECT * FROM applicants")
                 .query(Applicant.class)

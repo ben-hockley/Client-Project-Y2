@@ -23,12 +23,59 @@ if the applicants CV cannot be found-->
             <div class="card">
                 <div class="card-body">
                     <h2>Contact Details</h2>
-                    <p><strong>Email:</strong> <span th:text="${applicant.email()}"></span></p>
+                    <p><strong>Email:</strong> <span id="applicantEmail" th:text="${applicant.email()}"></span></p>
                     <p><strong>Phone:</strong> <span th:text="${applicant.phone()}"></span></p>
                     <p><strong>Location:</strong> <span th:text="${applicant.location()}"></span></p>
+
+                    <div class="contactApplicant">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal">Contact Applicant</button>
+                    </div>
+
+                    <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="emailModalLabel">Send Email to Applicant</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="emailForm">
+                                        <div class="mb-3">
+                                            <label for="subject" class="form-label">Subject</label>
+                                            <input type="text" class="form-control" id="subject" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message" class="form-label">Message</label>
+                                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Send Email</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const emailForm = document.getElementById('emailForm');
+
+                            emailForm.addEventListener('submit', function (event) {
+                                event.preventDefault();
+
+                                const subject = document.getElementById('subject').value;
+                                const message = document.getElementById('message').value;
+                                const email = document.getElementById('applicantEmail').innerText;
+
+                                const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+                                window.location.href = mailtoLink;
+                            });
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
