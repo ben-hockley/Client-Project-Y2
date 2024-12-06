@@ -25,6 +25,8 @@ public class WebSecurityConfig {
             "/manageUsers",
             "/editUser/**",
             "/updateUser/**",
+            "/deleteApplicant/**",
+            "/deleteUser/**",
     };
 
 
