@@ -16,5 +16,4 @@ public class ApplicantEditController {
         applicantRepository.deleteById(id);
         return "redirect:/applicants/all";
     }
-
 }
