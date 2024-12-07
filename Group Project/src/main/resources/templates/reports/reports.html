@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <canvas id="chart-pie" width="200" height="200"></canvas>
+                        <canvas id="chart-pie"></canvas>
                     </div>
                 </div>
             </div>
@@ -35,35 +35,53 @@
 </div>
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function () {
-        // Retrieve the event data from the model attribute
         const eventData = /*[[${eventData}]]*/ {};
 
-        // Setting the labels and values for the pie chart
         const labels = Object.keys(eventData);
         const values = Object.values(eventData);
+        const backgroundColors = [
+            "rgba(117,169,255,0.6)",
+            "rgba(148,223,215,0.6)",
+            "rgba(208,129,222,0.6)",
+            "rgba(247,127,167,0.6)"
+        ];
+        const borderColors = [
+            "rgba(117,169,255,1)",
+            "rgba(148,223,215,1)",
+            "rgba(208,129,222,1)",
+            "rgba(247,127,167,1)"
+        ];
 
-        // Defining the data for the Chart.js pie chart
+        // Function to generate progressively lighter shades of grey for a segment
+        const generateGrayScale = (step) => {
+            const intensity = Math.min(255, step);
+            return `rgba(${intensity},${intensity},${intensity},0.6)`;
+        };
+
+        // Function to generate progressively lighter shades of grey for a segment border
+        const generateGrayScaleBorder = (step) => {
+            const intensity = Math.min(255, step);
+            return `rgba(${intensity},${intensity},${intensity},1)`;
+        };
+
+        // Adding colors dynamically if there are more events than colors in backgroundColors
+        let step = 0;
+        while (backgroundColors.length < labels.length) {
+            step += 20;
+            backgroundColors.push(generateGrayScale(step));
+            borderColors.push(generateGrayScaleBorder(step));
+        }
+
         const dataPie = {
             labels: labels,
             datasets: [{
                 data: values,
-                backgroundColor: [
-                    "rgba(117,169,255,0.6)",
-                    "rgba(148,223,215,0.6)",
-                    "rgba(208,129,222,0.6)",
-                    "rgba(247,127,167,0.6)"
-                ],
-                borderColor: [
-                    "rgba(117,169,255,1)",
-                    "rgba(148,223,215,1)",
-                    "rgba(208,129,222,1)",
-                    "rgba(247,127,167,1)"
-                ],
+                backgroundColor: backgroundColors.slice(0, labels.length),
+                borderColor: borderColors.slice(0, labels.length),
                 borderWidth: 1
             }]
         };
 
-        // Initialising the pie chart
         const ctx = document.getElementById("chart-pie").getContext("2d");
         new Chart(ctx, {
             type: "pie",
