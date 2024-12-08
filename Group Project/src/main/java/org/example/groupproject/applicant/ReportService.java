@@ -38,4 +38,25 @@ public class ReportService {
 
         return eventData;
     }
+
+    public Map<String, Integer> getApplicantsByLocation() {
+        // Initialize map with all possible locations set to 0
+        Map<String, Integer> locationData = new HashMap<>();
+        for (Location location : Location.values()) {
+            locationData.put(location.name().replaceAll("_"," "), 0);
+        }
+
+        // Query to count applicants for each location
+        String sql = "SELECT location, COUNT(*) AS count FROM applicants GROUP BY location";
+        List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
+
+        for (Map<String, Object> row : results) {
+            String location = (String) row.get("location");
+            Integer count = ((Long) row.get("count")).intValue(); // Convert count to Integer
+            locationData.put(location, count); // Update the map
+        }
+
+        return locationData;
+    }
+
 }

@@ -16,6 +16,9 @@ public class ReportController {
         ModelAndView modelAndView = new ModelAndView("reports/reports");
         Map<String, Integer> eventData = reportService.getEventData();
         modelAndView.addObject("eventData", eventData);
+        Map<String, Integer> locationData = reportService.getApplicantsByLocation();
+        modelAndView.addObject("locationData", locationData);
+        System.out.println("locationData = " + locationData);
         return modelAndView;
     }
 }
