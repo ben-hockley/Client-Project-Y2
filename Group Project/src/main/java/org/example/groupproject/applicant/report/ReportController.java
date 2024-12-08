@@ -1,4 +1,4 @@
-package org.example.groupproject.applicant;
+package org.example.groupproject.applicant.report;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,15 +14,17 @@ public class ReportController {
     @GetMapping("/reports")
     public ModelAndView reports() {
         ModelAndView modelAndView = new ModelAndView("reports/reports");
-        // Getting data for applicants by event
+        // Getting data for reports page
         Map<String, Integer> eventData = reportService.getEventData();
-        modelAndView.addObject("eventData", eventData);
-        // Getting data for applicants by location
         Map<String, Integer> locationData = reportService.getApplicantsByLocation();
-        modelAndView.addObject("locationData", locationData);
-        // Getting data for applicants by month added
         Map<String, Integer> dateData = reportService.getApplicantsByMonth();
+        Map<String, Integer> typeData = reportService.getApplicantsByType();
+
+        // Adding data to the model and view
+        modelAndView.addObject("eventData", eventData);
+        modelAndView.addObject("locationData", locationData);
         modelAndView.addObject("dateData", dateData);
+        modelAndView.addObject("typeData", typeData);
         return modelAndView;
     }
 }

@@ -1,5 +1,6 @@
-package org.example.groupproject.applicant;
+package org.example.groupproject.applicant.report;
 
+import org.example.groupproject.applicant.Location;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -99,4 +100,21 @@ public class ReportService {
 
         return monthlyData;
     }
+
+    public Map<String, Integer> getApplicantsByType() {
+        // Counting applicants by type
+        String sql = "SELECT is_internal, COUNT(*) AS count FROM applicants GROUP BY is_internal";
+        List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
+
+        Map<String, Integer> typeData = new HashMap<>();
+        // Updating the map with the counts
+        for (Map<String, Object> row : results) {
+            Boolean isInternal = (Boolean) row.get("is_internal");
+            String type = isInternal ? "Internal" : "External";
+            Integer count = ((Long) row.get("count")).intValue();
+            typeData.put(type, count);
+        }
+        return typeData;
+    }
+
 }
