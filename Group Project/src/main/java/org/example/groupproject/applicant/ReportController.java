@@ -14,11 +14,15 @@ public class ReportController {
     @GetMapping("/reports")
     public ModelAndView reports() {
         ModelAndView modelAndView = new ModelAndView("reports/reports");
+        // Getting data for applicants by event
         Map<String, Integer> eventData = reportService.getEventData();
         modelAndView.addObject("eventData", eventData);
+        // Getting data for applicants by location
         Map<String, Integer> locationData = reportService.getApplicantsByLocation();
         modelAndView.addObject("locationData", locationData);
-        System.out.println("locationData = " + locationData);
+        // Getting data for applicants by month added
+        Map<String, Integer> dateData = reportService.getApplicantsByMonth();
+        modelAndView.addObject("dateData", dateData);
         return modelAndView;
     }
 }
