@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
@@ -10,11 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <a href="/applicantForm" class="btn btn-primary">Applicants Form</a>
-
-    <!-- This button only shows if logged-in user is an admin -->
-    <span th:if="${sessionUser.isAdmin}"><a href="/manageUsers" class="btn btn-primary">Manage Users</a></span>
-
+    <div id="navbar-placeholder"></div>
     <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
     <h1>All Applicants</h1>
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
@@ -22,7 +19,7 @@
         <h2>Keyword Search:</h2>
         <label for="searchQuery">Search by Name or Previous Job or Skills:</label>
         <input class="form-control" id="searchQuery" name="searchQuery" th:value="${searchQuery}"
-               placeholder="Enter an applicant's name or previous job or skills:">
+               placeholder="Enter an applicant name or previous job title or skills">
         <div class="text-danger" th:if="${#fields.hasErrors('searchQuery')}" th:errors="*{searchQuery}"></div>
         <div class="mb-3">
             <h2>Filters:</h2>
@@ -66,5 +63,19 @@
         </tr>
         </tbody>
     </table>
+    <form th:action="@{/logout}" th:method="post" class="invisibleForm">
+        <input type="submit" value="Logout" class="btn btn-primary"/>
+        <input name="${_csrf.parameterName}"
+               type="hidden"
+               value="${_csrf.token}"/>
+    </form>
+    <script>
+        fetch('/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
 </body>
 </html>

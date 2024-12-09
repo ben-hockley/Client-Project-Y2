@@ -9,7 +9,7 @@
 </head>
 <!-- Form for recruitment team to fill in for with applicant details-->
 <body class="bg-light">
-
+<div id="navbar-placeholder"></div>
 <div class="container my-5">
     <div class="card shadow">
         <div class="card-header bg-primary text-white">
@@ -110,5 +110,13 @@
         </div>
     </div>
 </div>
+<script>
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+</script>
 </body>
 </html>

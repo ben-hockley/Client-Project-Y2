@@ -226,9 +226,60 @@ form h5 {
     color: white;
 }
 
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to left, #add8e6, #005eb8);
+    padding: 10px 20px;
+}
+.navbar .logo {
+    margin-right: auto;
+}
+.navbar .nav-center {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+}
+.navbar a:hover {
+    background-color: #003087;
+    border-radius: 5px;
+}
+.navbar .nav-right {
+    display: flex;
+    align-items: center;
+}
+.navbar .search-icon {
+    margin-right: 15px;
+}
+.navbar .login-button {
+    background-color: #add8e6;
+    color: #005eb8;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.navbar .login-button:hover {
+    background-color: #87ceeb;
+}
+
 /* changes the color of the font awesome star if the applicant is a favorite */
 .favourite {
     color: #f1c40f;
+}
+
+/* overwrites default form properties to show only button */
+.invisibleForm {
+    padding: 0;
+    box-shadow: none;
 }
 
 
