@@ -49,6 +49,10 @@ public class ApplicantCsv {
     @Setter
     @Column(name="cvFilePath")
     private String cvFilePath;
+    @Getter
+    @Setter
+    @Column(name="isFavourite")
+    private boolean isFavourite;
 
 }
 
