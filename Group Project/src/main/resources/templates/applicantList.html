@@ -17,9 +17,9 @@
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
         <h2>Keyword Search:</h2>
-        <label for="searchQuery">Search by Name or Previous Job:</label>
+        <label for="searchQuery">Search by Name or Previous Job or Skills:</label>
         <input class="form-control" id="searchQuery" name="searchQuery" th:value="${searchQuery}"
-               placeholder="Enter an applicant name or Previous Job title">
+               placeholder="Enter an applicant name or previous job title or skills">
         <div class="text-danger" th:if="${#fields.hasErrors('searchQuery')}" th:errors="*{searchQuery}"></div>
         <div class="mb-3">
             <h2>Filters:</h2>
