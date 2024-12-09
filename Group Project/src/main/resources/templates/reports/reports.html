@@ -13,6 +13,7 @@
 <!-- https://www.w3schools.com/js/js_graphics_chartjs.asp -->
 <!-- https://www.chartjs.org/docs/2.9.4/ -->
 <body>
+<div id="navbar-placeholder"></div>
 <div class="container mt-5">
     <div class="text-center mb-5">
         <h1 class="text-primary">Applicant Reports</h1>
@@ -157,10 +158,10 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { display: false }
+                    legend: {display: false}
                 },
                 scales: {
-                    x: { beginAtZero: true },
+                    x: {beginAtZero: true},
                     y: {
                         beginAtZero: true,
                         ticks: {
@@ -195,7 +196,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: true }
+                    legend: {display: true}
                 },
                 scales: {
                     x: {
@@ -239,7 +240,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: {display: false}
                 },
                 scales: {
                     x: {
@@ -255,6 +256,11 @@
             }
         });
     });
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        });
 </script>
 </body>
 </html>
