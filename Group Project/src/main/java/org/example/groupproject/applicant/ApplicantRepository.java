@@ -20,7 +20,7 @@ public class ApplicantRepository {
 
     public Applicant findById(Integer id) {
         return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role,eventId," +
-                        "is_internal, start_date, cv_file_path FROM applicants WHERE id = :id")
+                        "is_internal, start_date, cv_file_path, is_favourite FROM applicants WHERE id = :id")
                 .param("id", id)
                 .query(Applicant.class)
                 .single();
@@ -39,6 +39,24 @@ public class ApplicantRepository {
         jdbcClient.sql("DELETE FROM applicants WHERE id = :id")
                 .param("id", id)
                 .update();
+    }
+
+    public void toggleFavourite(Integer id) {
+
+        Boolean isFavourite = jdbcClient.sql("SELECT is_favourite FROM applicants WHERE id = :id")
+                .param("id", id)
+                .query(Boolean.class)
+                .single();
+
+        if (isFavourite) {
+            jdbcClient.sql("UPDATE applicants SET is_favourite = FALSE WHERE id = :id")
+                    .param("id", id)
+                    .update();
+        } else {
+            jdbcClient.sql("UPDATE applicants SET is_favourite = TRUE WHERE id = :id")
+                    .param("id", id)
+                    .update();
+        }
     }
 
     public List<Applicant> findWithFilters(String searchQuery, Integer eventId, Boolean isInternal, Location location) {

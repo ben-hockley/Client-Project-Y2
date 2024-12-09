@@ -37,6 +37,7 @@ public class CsvService {
                 applicantCsv.setInternal(Boolean.parseBoolean(record[7]));
                 applicantCsv.setStartDate(Date.valueOf(record[8]));
                 applicantCsv.setCvFilePath(record[9]);
+                applicantCsv.setFavourite(false);
                 applicants.add(applicantCsv);
             }
             csvRepo.saveAll(applicants); // Save all applicants at once

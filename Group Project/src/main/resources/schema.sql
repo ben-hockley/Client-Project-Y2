@@ -10,7 +10,8 @@ create table if not exists applicants (
     eventid int,
     is_internal boolean,
     start_date date,
-    cv_file_path varchar(255)
+    cv_file_path varchar(255),
+    is_favourite boolean
 );
 
 drop table if exists events;
