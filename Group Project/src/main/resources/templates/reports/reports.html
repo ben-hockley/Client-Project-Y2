@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Reports</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/stylesheet.css">
+</head>
+<!-- The reports page is for data visualisation, allowing the recruitment officers to see the stats -->
+<!-- The following websites were used to help create the pie chart: -->
+<!-- https://www.w3schools.com/js/js_graphics_chartjs.asp -->
+<!-- https://www.chartjs.org/docs/2.9.4/ -->
+<body>
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="text-primary">Applicant Reports</h1>
+        <p class="text-muted">Insights into applicants</p>
+    </div>
+    <div class="row g-4">
+        <!-- Pie Chart for visualising applicants by event -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0 text-center">Applicants by Event</h5>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="chart-pie"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Bar Chart for visualising applicants by location -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0 text-center">Applicants by Location</h5>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="chart-bar"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Line Chart for visualising applicants by month added -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0 text-center">Applicants by Date Added</h5>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="chart-line"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Horizontal Bar Chart for visualising -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0 text-center">Applicants by Type</h5>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="chart-horizontal-bar"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="/applicants/all" class="btn btn-secondary">Back to All Applicants</a>
+    </div>
+</div>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const eventData = /*[[${eventData}]]*/ {};
+
+        const labels = Object.keys(eventData);
+        const values = Object.values(eventData);
+        const backgroundColors = [
+            "rgba(117,169,255,0.6)",
+            "rgba(148,223,215,0.6)",
+            "rgba(208,129,222,0.6)",
+            "rgba(247,127,167,0.6)"
+        ];
+        const borderColors = [
+            "rgba(117,169,255,1)",
+            "rgba(148,223,215,1)",
+            "rgba(208,129,222,1)",
+            "rgba(247,127,167,1)"
+        ];
+
+        // Function to generate progressively lighter shades of grey for a segment
+        const generateGrayScale = (step) => {
+            const intensity = Math.min(255, step);
+            return `rgba(${intensity},${intensity},${intensity},0.6)`;
+        };
+
+        // Function to generate progressively lighter shades of grey for a segment border
+        const generateGrayScaleBorder = (step) => {
+            const intensity = Math.min(255, step);
+            return `rgba(${intensity},${intensity},${intensity},1)`;
+        };
+
+        // Adding colors dynamically if there are more events than colors in backgroundColors
+        let step = 0;
+        while (backgroundColors.length < labels.length) {
+            step += 20;
+            backgroundColors.push(generateGrayScale(step));
+            borderColors.push(generateGrayScaleBorder(step));
+        }
+
+        const dataPie = {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: backgroundColors.slice(0, labels.length),
+                borderColor: borderColors.slice(0, labels.length),
+                borderWidth: 1
+            }]
+        };
+
+        const ctx = document.getElementById("chart-pie").getContext("2d");
+        new Chart(ctx, {
+            type: "pie",
+            data: dataPie,
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
+        const locationData = /*[[${locationData}]]*/ {};
+        const barLabels = Object.keys(locationData);
+        const barValues = Object.values(locationData);
+
+        const barData = {
+            labels: barLabels,
+            datasets: [{
+                label: "Number of Applicants",
+                data: barValues,
+                backgroundColor: "rgba(75, 192, 192, 0.6)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1
+            }]
+        };
+
+        const barCtx = document.getElementById("chart-bar").getContext("2d");
+        new Chart(barCtx, {
+            type: "bar",
+            data: barData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { beginAtZero: true },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
+                    }
+                }
+            }
+        });
+
+        const dateData = /*[[${dateData}]]*/ {};
+        const lineLabels = Object.keys(dateData);
+        const lineValues = Object.values(dateData);
+
+        const lineData = {
+            labels: lineLabels,
+            datasets: [{
+                label: "Number of Applicants",
+                data: lineValues,
+                fill: false,
+                borderColor: "rgba(75,192,192,1)",
+                backgroundColor: "rgba(75,192,192,0.6)",
+                tension: 0.1
+            }]
+        };
+
+        const lineCtx = document.getElementById("chart-line").getContext("2d");
+        new Chart(lineCtx, {
+            type: "line",
+            data: lineData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
+                    }
+                }
+            }
+        });
+        const typeData = /*[[${typeData}]]*/ {};
+        const typeLabels = Object.keys(typeData);
+        const typeValues = Object.values(typeData);
+
+        const typeChartData = {
+            labels: typeLabels,
+            datasets: [{
+                data: typeValues,
+                backgroundColor: [
+                    "rgba(255, 99, 132, 0.6)",
+                    "rgba(54, 162, 235, 0.6)"
+                ],
+                borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)"
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const typeCtx = document.getElementById("chart-horizontal-bar").getContext("2d");
+        new Chart(typeCtx, {
+            type: "bar",
+            data: typeChartData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

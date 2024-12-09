@@ -30,7 +30,9 @@ public class ApplicantFormService {
                 applicantForm.getEvent() != null ? Integer.valueOf(applicantForm.getEvent()) : null,
                 applicantForm.getIsInternal(),
                 LocalDate.now(),
-                cvFilePath);
+                cvFilePath,
+                false //set applicant as not favourite by default
+        );
     }
 
     public Applicant findApplicantById(Long id) {
@@ -49,7 +51,8 @@ public class ApplicantFormService {
                         rs.getInt("eventid"),
                         rs.getBoolean("is_internal"),
                         rs.getDate("start_date").toLocalDate(),
-                        rs.getString("cv_file_path")
+                        rs.getString("cv_file_path"),
+                        rs.getBoolean("is_favourite")
                 ));
     }
     public void updateApplicantCvPath(Long applicantId, String cvFilePath) {

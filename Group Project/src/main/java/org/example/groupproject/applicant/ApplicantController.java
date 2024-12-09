@@ -89,5 +89,4 @@ public class ApplicantController {
         modelAndView.addObject("applicant", applicant);
         return modelAndView;
     }
-
 }
