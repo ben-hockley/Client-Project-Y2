@@ -17,6 +17,7 @@ public class ApplicantScheduler {
     public void deleteApplicantsInDatabaseForMoreThanAYear() {
         List<Applicant> applicantList = applicantRepository.findAll();
         for (Applicant applicant : applicantList) {
+            //applicants that are not favourites are automatically deleted after a year
             if (applicantRepository.hasBeenInDatabaseForMoreThanAYear(applicant.id().intValue()) && !applicant.isFavourite()) {
                 applicantRepository.deleteById(applicant.id().intValue());
             }
