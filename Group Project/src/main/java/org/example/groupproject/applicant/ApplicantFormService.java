@@ -16,8 +16,8 @@ public class ApplicantFormService {
 
     // Saving the applicant form to the database
     public void saveApplicantForm(ApplicantForm applicantForm, String cvFilePath) {
-        String sql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role,skills, " +
-                "eventID, is_internal, start_date, cv_file_path) " +
+        String sql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role, " +
+                "eventID, is_internal, start_date, cv_file_path, is_favourite) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         jdbcTemplate.update(sql,
                 applicantForm.getName(),
@@ -26,7 +26,6 @@ public class ApplicantFormService {
                 applicantForm.getLocation(),
                 applicantForm.getMostRecentJob(),
                 applicantForm.getVacancyAppliedFor(),
-                applicantForm.getRelevantSkills(),
                 applicantForm.getEvent() != null ? Integer.valueOf(applicantForm.getEvent()) : null,
                 applicantForm.getIsInternal(),
                 LocalDate.now(),
@@ -36,8 +35,8 @@ public class ApplicantFormService {
     }
 
     public Applicant findApplicantById(Long id) {
-        String sql = "SELECT id, name, email, phone, location, current_job_role, old_job_role, skills, eventid, " +
-                "is_internal, start_date, cv_file_path FROM applicants WHERE id = ?";
+        String sql = "SELECT id, name, email, phone, location, current_job_role, old_job_role, eventid, " +
+                "is_internal, start_date, cv_file_path, is_favourite FROM applicants WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
                 new Applicant(
                         rs.getLong("id"),
@@ -47,7 +46,6 @@ public class ApplicantFormService {
                         Location.valueOf(rs.getString("location")),
                         rs.getString("current_job_role"),
                         rs.getString("old_job_role"),
-                        rs.getString("skills"),
                         rs.getInt("eventid"),
                         rs.getBoolean("is_internal"),
                         rs.getDate("start_date").toLocalDate(),
