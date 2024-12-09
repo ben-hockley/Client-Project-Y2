@@ -17,8 +17,8 @@ public class ApplicantFormService {
     // Saving the applicant form to the database
     public void saveApplicantForm(ApplicantForm applicantForm, String cvFilePath) {
         String sql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role,skills, " +
-                "eventID, is_internal, start_date, cv_file_path) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                "eventID, is_internal, start_date, cv_file_path,is_favourite) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         jdbcTemplate.update(sql,
                 applicantForm.getName(),
                 applicantForm.getEmail(),
@@ -37,7 +37,7 @@ public class ApplicantFormService {
 
     public Applicant findApplicantById(Long id) {
         String sql = "SELECT id, name, email, phone, location, current_job_role, old_job_role, skills, eventid, " +
-                "is_internal, start_date, cv_file_path FROM applicants WHERE id = ?";
+                "is_internal, start_date, cv_file_path,is_favourite FROM applicants WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
                 new Applicant(
                         rs.getLong("id"),

@@ -2,28 +2,28 @@ delete from applicants;
 delete from events;
 delete from users;
 
-insert into applicants (name, email, phone, location, current_job_role, old_job_role, skills, eventID,
-                        is_internal, start_date, cv_file_path)
+insert into applicants (name, email, phone, location, current_job_role, old_job_role, skills, eventID, is_internal,
+                        start_date, cv_file_path, is_favourite)
 values ('Test User','MoicoT@cardiff.ac.uk','1234567890','Wales','TestOldJob1, TestOldJob2','Test Location',
-        'Skill1, Skill2',1,TRUE,'2021-01-01','TestCVPath'),
+        'Skill1, Skill2',1,TRUE,'2021-01-01','TestCVPath', FALSE),
        ('Alice Johnson','alice.johnson@example.com','2345678901','Wales','Developer','Junior Developer',
-        'Java, Spring',2,FALSE,'2022-02-01','AliceCVPath'),
+        'Java, Spring',2,FALSE,'2022-02-01','AliceCVPath', FALSE),
        ('Bob Smith','bob.smith@example.com','3456789012','Wales','Manager','Assistant Manager',
-        'Management, Leadership',3,TRUE,'2022-03-01','BobCVPath'),
+        'Management, Leadership',3,TRUE,'2022-03-01','BobCVPath', FALSE),
        ('Charlie Brown','charlie.brown@example.com','4567890123','Wales','Analyst','Junior Analyst',
-        'Data Analysis, SQL',4,FALSE,'2022-04-01','CharlieCVPath'),
+        'Data Analysis, SQL',4,FALSE,'2022-04-01','CharlieCVPath', FALSE),
        ('Diana Prince','diana.prince@example.com','5678901234','Wales','Designer','Junior Designer',
-        'Design, Creativity',1,TRUE,'2022-05-01','DianaCVPath'),
+        'Design, Creativity',1,TRUE,'2022-05-01','DianaCVPath', FALSE),
        ('Eve Adams','eve.adams@example.com','6789012345','Wales','Engineer','Junior Engineer',
-        'Engineering, Problem Solving',2,FALSE,'2022-06-01','EveCVPath'),
+        'Engineering, Problem Solving',2,FALSE,'2022-06-01','EveCVPath', FALSE),
        ('Frank Wright','frank.wright@example.com','7890123456','Wales','Consultant','Junior Consultant',
-        'Consulting, Strategy',3,TRUE,'2022-07-01','FrankCVPath'),
+        'Consulting, Strategy',3,TRUE,'2022-07-01','FrankCVPath', FALSE),
        ('Grace Lee','grace.lee@example.com','8901234567','Wales','Architect','Junior Architect',
-        'Architecture, Planning',4,FALSE,'2022-08-01','GraceCVPath'),
+        'Architecture, Planning',4,FALSE,'2022-08-01','GraceCVPath', FALSE),
        ('Hank Green','hank.green@example.com','9012345678','Wales','Scientist','Junior Scientist',
-        'Research, Experimentation',1,TRUE,'2022-09-01','HankCVPath'),
+        'Research, Experimentation',1,TRUE,'2022-09-01','HankCVPath', FALSE),
        ('Ivy White','ivy.white@example.com','0123456789','Wales','Technician','Junior Technician',
-        'Technical Skills, Maintenance',2,FALSE,'2022-10-01','IvyCVPath');
+        'Technical Skills, Maintenance',2,FALSE,'2022-10-01','IvyCVPath', FALSE);
 
 insert into events (event_name, event_location)
 values ('Test Event 1','Test Location 1'),
