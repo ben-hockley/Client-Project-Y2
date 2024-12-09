@@ -72,6 +72,14 @@
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label" for="relevantSkills">Relevant Skills:</label>
+                    <input class="form-control" id="relevantSkills" name="relevantSkills" th:field="*{relevantSkills}"
+                           placeholder="Relevant Skills" type="text"/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('relevantSkills')}"
+                         th:errors="*{relevantSkills}"></div>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label" for="cv">Upload CV:</label>
                     <input class="form-control" id="cv" name="cv" th:field="*{cv}" type="file"/>
                     <div class="text-danger" th:if="${#fields.hasErrors('cv')}" th:errors="*{cv}"></div>
