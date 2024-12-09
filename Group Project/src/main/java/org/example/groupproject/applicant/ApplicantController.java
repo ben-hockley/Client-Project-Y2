@@ -70,12 +70,7 @@ public class ApplicantController {
         modelAndView.addObject("searchQuery", searchQuery);
 
         String username = authentication.getName();
-        System.out.println("username: " + username);
         User sessionUser = userRepository.findByUsername(username);
-
-        System.out.println("user id:" + sessionUser.getId());
-        System.out.println("username: " + sessionUser.getUsername());
-        System.out.println("email: " + sessionUser.getEmail());
 
         modelAndView.addObject("sessionUser", sessionUser);
         modelAndView.addObject("applicants", applicants);

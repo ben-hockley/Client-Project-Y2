@@ -11,7 +11,7 @@ public class CvRepository {
         this.jdbcClient = jdbcClient;
     }
     public Applicant findById(Integer id) {
-        return jdbcClient.sql("SELECT id, name, email, phone, location, current_job_role, old_job_role, eventid, " +
+        return jdbcClient.sql("SELECT id, name, email, phone, location, current_job_role, old_job_role, skills, eventid, " +
                         "is_internal, start_date, cv_file_path FROM applicants WHERE id = :id")
                 .param("id", id)
                 .query(Applicant.class)
