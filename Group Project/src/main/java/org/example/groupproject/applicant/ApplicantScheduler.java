@@ -17,7 +17,7 @@ public class ApplicantScheduler {
     public void deleteApplicantsInDatabaseForMoreThanAYear() {
         List<Applicant> applicantList = applicantRepository.findAll();
         for (Applicant applicant : applicantList) {
-            if (applicantRepository.hasBeenInDatabaseForMoreThanAYear(applicant.id().intValue())) {
+            if (applicantRepository.hasBeenInDatabaseForMoreThanAYear(applicant.id().intValue()) && !applicant.isFavourite()) {
                 applicantRepository.deleteById(applicant.id().intValue());
             }
         }
