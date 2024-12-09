@@ -27,6 +27,7 @@ public class WebSecurityConfig {
             "/updateUser/**",
             "/deleteApplicant/**",
             "/deleteUser/**",
+            "/reports",
     };
 
 
