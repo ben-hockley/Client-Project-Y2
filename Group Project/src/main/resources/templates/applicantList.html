@@ -59,8 +59,9 @@
                     <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>
                     <span th:text="'Location: ' + ${applicant.location().toString()}"></span>
                 </a>
-                <i class="fa-solid fa-star"></i>
-                <a th:href="'/deleteApplicant/' + ${applicant.id}"><i class="fa-solid fa-trash"></i></a>
+
+                <a th:href="'/favouriteApplicant/' + ${applicant.id()}"><i class="fa-solid fa-star" th:class="${applicant.isFavourite()} ? 'fa-solid fa-star favourite' : 'fa-solid fa-star notFavourite'"></i></a>
+                <a th:href="'/deleteApplicant/' + ${applicant.id()}"><i class="fa-solid fa-trash"></i></a>
             </td>
         </tr>
         </tbody>

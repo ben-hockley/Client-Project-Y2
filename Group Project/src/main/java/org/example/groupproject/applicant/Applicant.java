@@ -13,5 +13,6 @@ public record Applicant  (Long id,
                           Integer eventId,
                           Boolean isInternal,
                           LocalDate startDate,
-                          String cvFilePath){
+                          String cvFilePath,
+                          Boolean isFavourite){
 }

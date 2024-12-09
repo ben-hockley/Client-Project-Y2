@@ -16,4 +16,10 @@ public class ApplicantEditController {
         applicantRepository.deleteById(id);
         return "redirect:/applicants/all";
     }
+
+    @GetMapping("/favouriteApplicant/{id}")
+    public String favouriteApplicant(@PathVariable Integer id) {
+        applicantRepository.toggleFavourite(id);
+        return "redirect:/applicants/all";
+    }
 }

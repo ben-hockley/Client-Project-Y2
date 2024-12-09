@@ -226,4 +226,9 @@ form h5 {
     color: white;
 }
 
+/* changes the color of the font awesome star if the applicant is a favorite */
+.favourite {
+    color: #f1c40f;
+}
+
 

@@ -17,8 +17,8 @@ public class ApplicantFormService {
     // Saving the applicant form to the database
     public void saveApplicantForm(ApplicantForm applicantForm, String cvFilePath) {
         String sql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role, eventID," +
-                "is_internal, start_date, cv_file_path) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "is_internal, start_date, cv_file_path, is_favourite) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 applicantForm.getName(),
                 applicantForm.getEmail(),
@@ -29,12 +29,14 @@ public class ApplicantFormService {
                 applicantForm.getEvent() != null ? Integer.valueOf(applicantForm.getEvent()) : null,
                 applicantForm.getIsInternal(),
                 LocalDate.now(),
-                cvFilePath);
+                cvFilePath,
+                false //set applicant as not favourite by default
+        );
     }
 
     public Applicant findApplicantById(Long id) {
         String sql = "SELECT id, name, email, phone, location, current_job_role, old_job_role, eventid, " +
-                "is_internal, start_date, cv_file_path FROM applicants WHERE id = ?";
+                "is_internal, start_date, cv_file_path, is_favourite FROM applicants WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
                 new Applicant(
                         rs.getLong("id"),
@@ -47,7 +49,8 @@ public class ApplicantFormService {
                         rs.getInt("eventid"),
                         rs.getBoolean("is_internal"),
                         rs.getDate("start_date").toLocalDate(),
-                        rs.getString("cv_file_path")
+                        rs.getString("cv_file_path"),
+                        rs.getBoolean("is_favourite")
                 ));
     }
     public void updateApplicantCvPath(Long applicantId, String cvFilePath) {

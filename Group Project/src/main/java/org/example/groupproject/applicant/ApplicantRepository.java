@@ -41,6 +41,24 @@ public class ApplicantRepository {
                 .update();
     }
 
+    public void toggleFavourite(Integer id) {
+
+        Boolean isFavourite = jdbcClient.sql("SELECT is_favourite FROM applicants WHERE id = :id")
+                .param("id", id)
+                .query(Boolean.class)
+                .single();
+
+        if (isFavourite) {
+            jdbcClient.sql("UPDATE applicants SET is_favourite = FALSE WHERE id = :id")
+                    .param("id", id)
+                    .update();
+        } else {
+            jdbcClient.sql("UPDATE applicants SET is_favourite = TRUE WHERE id = :id")
+                    .param("id", id)
+                    .update();
+        }
+    }
+
     public List<Applicant> findWithFilters(String searchQuery, Integer eventId, Boolean isInternal, Location location) {
         StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
 
