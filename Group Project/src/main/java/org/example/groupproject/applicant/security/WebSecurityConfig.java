@@ -28,6 +28,8 @@ public class WebSecurityConfig {
             "/deleteApplicant/**",
             "/deleteUser/**",
             "/reports",
+            "/navbar.html",
+            "/logout"
     };
 
 

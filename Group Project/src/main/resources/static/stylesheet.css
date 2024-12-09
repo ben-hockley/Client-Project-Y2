@@ -276,4 +276,10 @@ form h5 {
     color: #f1c40f;
 }
 
+/* overwrites default form properties to show only button */
+.invisibleForm {
+    padding: 0;
+    box-shadow: none;
+}
+
 

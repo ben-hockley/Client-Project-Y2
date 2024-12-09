@@ -63,6 +63,12 @@
         </tr>
         </tbody>
     </table>
+    <form th:action="@{/logout}" th:method="post" class="invisibleForm">
+        <input type="submit" value="Logout" class="btn btn-primary"/>
+        <input name="${_csrf.parameterName}"
+               type="hidden"
+               value="${_csrf.token}"/>
+    </form>
     <script>
         fetch('/navbar.html')
             .then(response => response.text())
