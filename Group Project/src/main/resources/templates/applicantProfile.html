@@ -17,6 +17,8 @@ if the applicants CV cannot be found-->
         <div class="card-header text-center py-4">
             <h1 class="card-title mb-0" th:text="${applicant.name()}"></h1>
             <small th:text="${applicant.isInternal() ? 'Internal Applicant' : 'External Applicant'}"></small>
+            <span th:if="${applicant.isFavourite()}"><small class="favourite">Is a favourite (No expiry date)</small></span>
+            <span th:if="${not applicant.isFavourite()}"><small th:text="'Not a favourite (Expires ' + ${applicant.getExpiryDateAsString()} + ')'"></small></span>
         </div>
     </div>
     <div class="row g-4">
