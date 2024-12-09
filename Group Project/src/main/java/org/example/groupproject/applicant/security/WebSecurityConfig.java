@@ -25,6 +25,7 @@ public class WebSecurityConfig {
             "/manageUsers",
             "/editUser/**",
             "/updateUser/**",
+            "/reports",
     };
 
 
