@@ -28,6 +28,7 @@ public class ApplicantForm {
     private static final int maxLocationLength = 100;
     private static final int maxJobRoleLength = 255;
     private static final int maxVacancyLength = 255;
+    private static final int maxSkillsLength = 1000;
 
     @NotEmpty(message = "Name is required")
     @Size(max = maxNameLength, message = "Name must not exceed " + maxNameLength + " characters")
@@ -62,6 +63,11 @@ public class ApplicantForm {
     @NotEmpty(message = "Enter the vacancy this candidate applied for")
     @Size(max = maxVacancyLength, message = "Vacancy applied for must not exceed " + maxVacancyLength + " characters")
     private String vacancyAppliedFor;
+
+    @NotEmpty(message = "Enter the relevant skills of the applicant")
+    @Size(max = maxSkillsLength, message = "Skills must not exceed " + maxSkillsLength + " characters")
+    @Pattern(regexp = "^[a-zA-Z, ]+$", message = "Invalid skills format")
+    private String relevantSkills;
 
     private MultipartFile cv;
 }
