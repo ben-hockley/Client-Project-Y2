@@ -64,10 +64,11 @@ public class WebSecurityConfig {
                         auth.requestMatchers(ENDPOINTS_WHITELIST).authenticated()
                                 .anyRequest().permitAll()
                 )
-                .formLogin(login ->
-                        login.usernameParameter("username")
-                                .defaultSuccessUrl("/applicants/all")
-                                .permitAll()
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .usernameParameter("username")
+                        .defaultSuccessUrl("/applicants/all")
+                        .permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/").permitAll()
                 );

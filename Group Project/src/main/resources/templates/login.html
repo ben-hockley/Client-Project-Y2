@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Please Log in</h1>
+<form th:action="@{/login}" method="post">
+    <div>
+        <input type="text" name="username" placeholder="Username"/>
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="Password"/>
+    </div>
+    <input type="hidden"
+           name="_csrf"
+           value="4bfd1575-3ad1-4d21-96c7-4ef2d9f86721"/>
+    <input type="submit" value="Log in" />
+</form>
+</body>
+</html>
