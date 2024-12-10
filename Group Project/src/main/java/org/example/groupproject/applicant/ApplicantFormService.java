@@ -23,7 +23,7 @@ public class ApplicantFormService {
                 applicantForm.getName(),
                 applicantForm.getEmail(),
                 applicantForm.getPhone(),
-                applicantForm.getLocation(),
+                applicantForm.getLocation().name(),
                 applicantForm.getMostRecentJob(),
                 applicantForm.getVacancyAppliedFor(),
                 applicantForm.getRelevantSkills(),

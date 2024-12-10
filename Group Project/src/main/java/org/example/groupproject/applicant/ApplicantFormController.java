@@ -46,6 +46,7 @@ public class ApplicantFormController {
         List<Event> events = eventService.getAllEvents();
         modelAndView.addObject("applicantForm", emptyApplicantForm);
         modelAndView.addObject("events", events);
+        modelAndView.addObject("locations", Location.values());
         return modelAndView;
     }
 
@@ -104,6 +105,7 @@ public class ApplicantFormController {
         modelAndView.addObject("successMessage", "Form Submitted Successfully");
         modelAndView.addObject("applicantForm", new ApplicantForm());
         modelAndView.addObject("events", eventService.getAllEvents());
+        modelAndView.addObject("locations", Location.values());
         return modelAndView;
     }
 }
