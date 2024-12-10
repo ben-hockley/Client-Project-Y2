@@ -61,7 +61,6 @@ public class ApplicantRepository {
 
     public List<Applicant> findWithFilters(String searchQuery, Integer eventId, Boolean isInternal, Location location) {
         StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
-
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
             sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(old_job_role) LIKE :searchQuery OR LOWER(skills) LIKE :searchQuery)");
         }
