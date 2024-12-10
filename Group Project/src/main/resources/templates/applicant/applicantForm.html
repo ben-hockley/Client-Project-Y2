@@ -49,8 +49,12 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="location">Location:</label>
-                    <input class="form-control" id="location" name="location" th:field="*{location}"
-                           placeholder="Applicant Location" type="text"/>
+                    <select class="form-select" id="location" name="location" th:field="*{location}">
+                        <option th:each="loc : ${T(org.example.groupproject.applicant.Location).values()}"
+                                th:value="${loc.name()}"
+                                th:text="${#strings.replace(loc.name(), '_', ' ')}">
+                        </option>
+                    </select>
                     <div class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
                 </div>
 

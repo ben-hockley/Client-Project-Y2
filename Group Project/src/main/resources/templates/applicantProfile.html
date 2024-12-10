@@ -12,6 +12,7 @@
 <!-- Applicant's profile page where the recruitment team can see the applicant details and view their CV or upload one
 if the applicants CV cannot be found-->
 <body>
+<div id="navbar-placeholder"></div>
 <div class="container my-5">
     <div class="card mb-4">
         <div class="card-header text-center py-4">
@@ -160,5 +161,13 @@ if the applicants CV cannot be found-->
         <a th:href="'/deleteApplicant/' + ${applicant.id()}" class="btn btn-danger">Delete Applicant <i class="fa fa-trash"> </i></a>
     </div>
 </div>
+<script>
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+</script>
 </body>
 </html>

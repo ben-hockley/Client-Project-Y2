@@ -1,9 +1,6 @@
 package org.example.groupproject.applicant;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -47,10 +44,8 @@ public class ApplicantForm {
     @Size(max = maxEmailLength, message = "Email must not exceed " + maxEmailLength + " characters")
     private String email;
 
-    @NotEmpty(message = "Location is required")
-    @Pattern(regexp = "^[a-zA-Z0-9 ]+$", message = "Invalid location format")
-    @Size(max = maxLocationLength, message = "Location must not exceed " + maxLocationLength + " characters")
-    private String location;
+    @NotNull(message = "Location is required")
+    private Location location;
 
     private String event;
     private Boolean isInternal;

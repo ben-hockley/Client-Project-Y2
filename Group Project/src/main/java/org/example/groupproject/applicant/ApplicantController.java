@@ -31,7 +31,8 @@ public class ApplicantController {
         this.userRepository = userRepository;
     }
     @GetMapping("/all")
-    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult, Authentication authentication) {
+    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult,
+                                      Authentication authentication) {
 
         ModelAndView modelAndView = new ModelAndView("applicantList");
 
@@ -40,7 +41,11 @@ public class ApplicantController {
         Location location = filter.getLocation();
         String searchQuery = filter.getSearchQuery();
 
+        String username = authentication.getName();
+        User sessionUser = userRepository.findByUsername(username);
+
         if (bindingResult.hasErrors()) {
+            modelAndView.addObject("sessionUser", sessionUser);
             modelAndView.addObject("filter", filter);
             modelAndView.addObject("searchQuery", searchQuery);
             modelAndView.addObject("events", eventService.getAllEvents());
@@ -69,8 +74,6 @@ public class ApplicantController {
         modelAndView.addObject("filter", filter);
         modelAndView.addObject("searchQuery", searchQuery);
 
-        String username = authentication.getName();
-        User sessionUser = userRepository.findByUsername(username);
 
         modelAndView.addObject("sessionUser", sessionUser);
         modelAndView.addObject("applicants", applicants);
