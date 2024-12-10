@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 @Repository
 public class ApplicantRepository {
@@ -91,5 +92,15 @@ public class ApplicantRepository {
             query = query.param("location", location.name());
         }
         return query.query(Applicant.class).list();
+    }
+
+    public void logContact(int applicantId, String contactedBy, String contactInfo, LocalDateTime contactDate) {
+        jdbcClient.sql("INSERT INTO contact_history (applicant_id, contacted_by, contact_date, contact_info) " +
+                        "VALUES (:applicantId, :contactedBy, :contactDate, :contactInfo)")
+                .param("applicantId", applicantId)
+                .param("contactedBy", contactedBy)
+                .param("contactDate", contactDate)
+                .param("contactInfo", contactInfo)
+                .update();
     }
 }

@@ -107,12 +107,9 @@ public class ApplicantController {
         User sessionUser = userRepository.findByUsername(username);
 
         LocalDateTime now = LocalDateTime.now();
-        String formattedDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-
-        System.out.println("Contacted by: " + sessionUser.getUsername());
-        System.out.println("Subject: " + subject);
-        System.out.println("Date contacted: " + formattedDateTime);
+        Integer applicantId = Integer.parseInt(contactDetails.get("applicantId"));
+        applicantRepository.logContact(applicantId, sessionUser.getUsername(), subject, now);
     }
 
 }
