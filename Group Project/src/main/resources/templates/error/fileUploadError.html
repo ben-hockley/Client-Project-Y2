@@ -8,6 +8,7 @@
 </head>
 <!-- Error page for when the file upload fails-->
 <body>
+<div id="navbar-placeholder"></div>
 <div class="container mt-5">
     <div class="alert alert-danger">
         <h1 class="mb-3">File Upload Error</h1>
@@ -15,5 +16,13 @@
         <a href="/applicants/all" class="btn btn-primary">Go Back to Applicants List</a>
     </div>
 </div>
+<script>
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+</script>
 </body>
 </html>
