@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.validation.Valid;
 
@@ -83,12 +86,33 @@ public class ApplicantController {
     }
 
     @GetMapping("/profile/{id}")
-    public ModelAndView viewProfile(@PathVariable Integer id){
+    public ModelAndView viewProfile(@PathVariable Integer id, Authentication authentication){
 
         Applicant applicant = applicantRepository.findById(id);
 
+        String username = authentication.getName();
+        User sessionUser = userRepository.findByUsername(username);
+
         ModelAndView modelAndView = new ModelAndView("applicantProfile"); // templates/gameDetails.html
         modelAndView.addObject("applicant", applicant);
+        modelAndView.addObject("sessionUser", sessionUser);
         return modelAndView;
     }
+
+    @PostMapping("/logContact")
+    public void logContact(@RequestBody Map<String, String> contactDetails, Authentication authentication) {
+        String subject = contactDetails.get("subject");
+
+        String username = authentication.getName();
+        User sessionUser = userRepository.findByUsername(username);
+
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+
+        System.out.println("Contacted by: " + sessionUser.getUsername());
+        System.out.println("Subject: " + subject);
+        System.out.println("Date contacted: " + formattedDateTime);
+    }
+
 }
