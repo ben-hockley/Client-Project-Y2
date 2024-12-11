@@ -11,6 +11,8 @@ create table if not exists applicants (
     current_job_role varchar(255) not null,
     old_job_role varchar(255) not null,
     skills varchar(255) not null,
+    expected_salary int not null ,
+    qualification varchar(255) not null,
     eventid int,
     is_internal boolean,
     start_date date,

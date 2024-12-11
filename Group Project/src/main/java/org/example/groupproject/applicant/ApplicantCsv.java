@@ -35,6 +35,18 @@ public class ApplicantCsv {
     private String oldJobRole;
     @Getter
     @Setter
+    @Column(name="skills")
+    private String skills;
+    @Getter
+    @Setter
+    @Column(name="expectedSalary")
+    private int expectedSalary;
+    @Getter
+    @Setter
+    @Column(name="qualification")
+    private String qualification;
+    @Getter
+    @Setter
     @Column(name="eventID")
     private int eventID;
     @Getter

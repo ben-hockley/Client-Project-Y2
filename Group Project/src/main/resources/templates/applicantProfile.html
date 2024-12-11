@@ -94,11 +94,13 @@ if the applicants CV cannot be found-->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h2>Application Details</h2>
+                    <h2>Applicant Details</h2>
                     <p><strong>Application Date:</strong> <span th:text="${applicant.startDate()}"></span></p>
                     <p><strong>Current Job Role:</strong> <span th:text="${applicant.currentJobRole()}"></span></p>
                     <p><strong>Previous Job Role(s):</strong> <span th:text="${applicant.oldJobRole()}"></span></p>
                     <p><strong>Relevant Skills:</strong> <span th:text="${applicant.skills()}"></span></p>
+                    <p><strong>Expected Salary: £</strong><span th:text=" ${applicant.expectedSalary()}"></span> </p>
+                    <p><strong>Qualifications:</strong> <span th:text="${applicant.qualification()}"></span></p>
                 </div>
             </div>
         </div>
