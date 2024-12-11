@@ -13,7 +13,7 @@ public class FileUploadControllerAdvice {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ModelAndView handleMaxSizeException(MaxUploadSizeExceededException ex) {
         ModelAndView modelAndView = new ModelAndView("error/fileUploadError");
-        modelAndView.addObject("errorMessage", "File size must not exceed "
+        modelAndView.addObject("errorMessage", "File size must not exceed"
                 + maxFileSizeMB + " MB.");
         return modelAndView;
     }

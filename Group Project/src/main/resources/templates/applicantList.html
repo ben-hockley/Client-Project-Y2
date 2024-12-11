@@ -55,6 +55,7 @@
                     <span th:text="'Email: ' + ${applicant.email()}"></span>
                     <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>
                     <span th:text="'Location: ' + ${applicant.location().toString()}"></span>
+                    <span th:text="'Skills: ' + ${applicant.skills()}"></span>
                 </a>
 
                 <a th:href="'/favouriteApplicant/' + ${applicant.id()}"><i class="fa-solid fa-star" th:class="${applicant.isFavourite()} ? 'fa-solid fa-star favourite' : 'fa-solid fa-star notFavourite'"></i></a>
