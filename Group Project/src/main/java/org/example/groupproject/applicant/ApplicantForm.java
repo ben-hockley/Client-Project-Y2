@@ -26,6 +26,8 @@ public class ApplicantForm {
     private static final int maxJobRoleLength = 255;
     private static final int maxVacancyLength = 255;
     private static final int maxSkillsLength = 1000;
+    private static final int maxExpectedSalary = 9999999;
+    private static final int maxQualificationLength = 255;
 
     @NotEmpty(message = "Name is required")
     @Size(max = maxNameLength, message = "Name must not exceed " + maxNameLength + " characters")
@@ -63,6 +65,16 @@ public class ApplicantForm {
     @Size(max = maxSkillsLength, message = "Skills must not exceed " + maxSkillsLength + " characters")
     @Pattern(regexp = "^[a-zA-Z, ]+$", message = "Invalid skills format")
     private String relevantSkills;
+
+    @NotEmpty(message = "Expected salary is required")
+    @Size(max = maxExpectedSalary, message = "Expected salary must not exceed " + maxExpectedSalary + " characters")
+    @Pattern(regexp = "^[0-9]+$", message = "Salary must only include numbers")
+    private String expectedSalary;
+
+    @NotEmpty(message = "Enter the qualification of the applicant")
+    @Size(max = maxQualificationLength, message = "Qualification must not exceed " + maxQualificationLength + " characters")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Invalid qualification format")
+    private String qualification;
 
     private MultipartFile cv;
 }
