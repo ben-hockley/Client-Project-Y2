@@ -9,7 +9,7 @@
 </head>
 <!-- Form for recruitment team to fill in for with applicant details-->
 <body class="bg-light">
-
+<div id="navbar-placeholder"></div>
 <div class="container my-5">
     <div class="card shadow">
         <div class="card-header bg-primary text-white">
@@ -49,8 +49,12 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="location">Location:</label>
-                    <input class="form-control" id="location" name="location" th:field="*{location}"
-                           placeholder="Applicant Location" type="text"/>
+                    <select class="form-select" id="location" name="location" th:field="*{location}">
+                        <option th:each="loc : ${T(org.example.groupproject.applicant.Location).values()}"
+                                th:value="${loc.name()}"
+                                th:text="${#strings.replace(loc.name(), '_', ' ')}">
+                        </option>
+                    </select>
                     <div class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
                 </div>
 
@@ -69,6 +73,14 @@
                            placeholder="Desired Job" type="text"/>
                     <div class="text-danger" th:if="${#fields.hasErrors('vacancyAppliedFor')}"
                          th:errors="*{vacancyAppliedFor}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="relevantSkills">Relevant Skills:</label>
+                    <input class="form-control" id="relevantSkills" name="relevantSkills" th:field="*{relevantSkills}"
+                           placeholder="Relevant Skills" type="text"/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('relevantSkills')}"
+                         th:errors="*{relevantSkills}"></div>
                 </div>
 
                 <div class="mb-3">
@@ -108,5 +120,13 @@
         </div>
     </div>
 </div>
+<script>
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+</script>
 </body>
 </html>

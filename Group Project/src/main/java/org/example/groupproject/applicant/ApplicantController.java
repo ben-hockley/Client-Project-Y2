@@ -4,7 +4,6 @@ import org.example.groupproject.applicant.user.User;
 import org.example.groupproject.applicant.user.UserRepository;
 import org.example.groupproject.filter.Filter;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +31,8 @@ public class ApplicantController {
         this.userRepository = userRepository;
     }
     @GetMapping("/all")
-    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult, Authentication authentication) {
+    public ModelAndView allApplicants(@Valid @ModelAttribute("filter") Filter filter, BindingResult bindingResult,
+                                      Authentication authentication) {
 
         ModelAndView modelAndView = new ModelAndView("applicantList");
 
@@ -41,7 +41,11 @@ public class ApplicantController {
         Location location = filter.getLocation();
         String searchQuery = filter.getSearchQuery();
 
+        String username = authentication.getName();
+        User sessionUser = userRepository.findByUsername(username);
+
         if (bindingResult.hasErrors()) {
+            modelAndView.addObject("sessionUser", sessionUser);
             modelAndView.addObject("filter", filter);
             modelAndView.addObject("searchQuery", searchQuery);
             modelAndView.addObject("events", eventService.getAllEvents());
@@ -70,22 +74,12 @@ public class ApplicantController {
         modelAndView.addObject("filter", filter);
         modelAndView.addObject("searchQuery", searchQuery);
 
-        String username = authentication.getName();
-        System.out.println("username: " + username);
-        User sessionUser = userRepository.findByUsername(username);
-
-        System.out.println("user id:" + sessionUser.getId());
-        System.out.println("username: " + sessionUser.getUsername());
-        System.out.println("email: " + sessionUser.getEmail());
-
         modelAndView.addObject("sessionUser", sessionUser);
         modelAndView.addObject("applicants", applicants);
         modelAndView.addObject("events", events);
         modelAndView.addObject("locations", locations);
         return modelAndView;
     }
-
-
 
     @GetMapping("/profile/{id}")
     public ModelAndView viewProfile(@PathVariable Integer id){
@@ -96,7 +90,5 @@ public class ApplicantController {
         modelAndView.addObject("applicant", applicant);
         return modelAndView;
     }
-
-
 
 }

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class FileUploadControllerAdvice {
 
-    private static final long maxFileSizeMB = 1; // Maximum file size in MB
+    private static final long maxFileSizeMB = 5; // Maximum file size in MB
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ModelAndView handleMaxSizeException(MaxUploadSizeExceededException ex) {

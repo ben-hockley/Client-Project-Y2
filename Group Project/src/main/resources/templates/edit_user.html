@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+<div id="navbar-placeholder"></div>
 <span th:if="${error}">
     <div class="alert alert-danger" role="alert" th:text="${error}"></div>
 </span>
@@ -33,5 +34,13 @@
     <button type="submit" class="btn btn-primary">Save</button>
     <a href="/manageUsers" class="btn btn-secondary">Cancel</a>
 </form>
+<script>
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+</script>
 </body>
 </html>

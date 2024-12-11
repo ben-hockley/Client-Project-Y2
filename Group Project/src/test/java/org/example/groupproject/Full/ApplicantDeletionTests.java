@@ -27,9 +27,9 @@ public class ApplicantDeletionTests {
     @Test
     public void testHasBeenInDatabaseForMoreThanAYear() {
         String insertSql = "INSERT INTO applicants (id, name, email, phone, location, current_job_role, old_job_role, " +
-                "eventid, is_internal, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "skills, eventid, is_internal, start_date,is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(insertSql, 11L, "Test User", "test@test.com", "1234567890",
-                null, "Developer", "Junior Developer", 1, true, LocalDate.now().minusYears(2));
+                null, "Developer", "Junior Developer", "Skill1, Skill2", 1, true, LocalDate.now().minusYears(2),false);
 
         String sql1 = "SELECT id FROM applicants WHERE id = 11";
         Integer id = jdbcTemplate.queryForObject(sql1, Integer.class);
@@ -41,9 +41,9 @@ public class ApplicantDeletionTests {
     @Test
     public void testDeleteApplicantsInDatabaseForMoreThanAYear() {
         String insertSql = "INSERT INTO applicants (id, name, email, phone, location, current_job_role, old_job_role, " +
-                "eventid, is_internal, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "skills, eventid, is_internal, start_date,is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(insertSql, 11L, "Test User", "test@test.com", "1234567890",
-                null, "Developer", "Junior Developer", 1, true, LocalDate.now().minusYears(2));
+                null, "Developer", "Junior Developer", "Skill1, Skill2", 1, true, LocalDate.now().minusYears(2),false);
 
         String sql1 = "SELECT COUNT(*) FROM applicants WHERE id = 11";
         Integer numOfApplicantsBeforeDelete = jdbcTemplate.queryForObject(sql1, Integer.class);
@@ -58,9 +58,9 @@ public class ApplicantDeletionTests {
     public void testScheduler() {
         // Given
         String insertSql = "INSERT INTO applicants (id, name, email, phone, location, current_job_role, old_job_role, " +
-                "eventid, is_internal, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "skills, eventid, is_internal, start_date,is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(insertSql, 11L, "Test User", "test@test.com", "1234567890",
-                null, "Developer", "Junior Developer", 1, true, LocalDate.now().minusYears(2));
+                null, "Developer", "Junior Developer", "Skill1, Skill2", 1, true, LocalDate.now().minusYears(2),false);
 
         String sql1 = "SELECT COUNT(*) FROM applicants WHERE id = 11";
         Integer numOfApplicantsBeforeDelete = jdbcTemplate.queryForObject(sql1, Integer.class);
@@ -70,15 +70,15 @@ public class ApplicantDeletionTests {
 
         // Then
         Integer numOfApplicantsAfterDelete = jdbcTemplate.queryForObject(sql1, Integer.class);
-        assertTrue(numOfApplicantsAfterDelete< numOfApplicantsBeforeDelete);
+        assertTrue(numOfApplicantsAfterDelete < numOfApplicantsBeforeDelete);
     }
 
     @Test
     public void testApplicantHasNotBeenInDatabaseForMoreThanAYear(){
         String insertSql = "INSERT INTO applicants (id, name, email, phone, location, current_job_role, old_job_role, " +
-                "eventid, is_internal, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "skills, eventid, is_internal, start_date,is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(insertSql, 12L, "New User", "new@test.com", "0987654321",
-                null, "Tester", "Intern", 2, false, LocalDate.now().minusMonths(6));
+                null, "Tester", "Intern", "Skill1, Skill2", 2, false, LocalDate.now().minusMonths(6),false);
 
         String sql1 = "SELECT id FROM applicants WHERE id = 12";
         Integer id = jdbcTemplate.queryForObject(sql1, Integer.class);
@@ -90,11 +90,11 @@ public class ApplicantDeletionTests {
     @Test
     public void testMultipleApplicantsDeletion() {
         String insertSql = "INSERT INTO applicants (id, name, email, phone, location, current_job_role, old_job_role, " +
-                "eventid, is_internal, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "skills, eventid, is_internal, start_date,is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(insertSql, 13L, "User One", "one@test.com", "1111111111",
-                null, "Manager", "Assistant Manager", 3, true, LocalDate.now().minusYears(2));
+                null, "Manager", "Assistant Manager", "Skill1, Skill2", 3, true, LocalDate.now().minusYears(2), false);
         jdbcTemplate.update(insertSql, 14L, "User Two", "two@test.com", "2222222222",
-                null, "Analyst", "Junior Analyst", 4, false, LocalDate.now().minusYears(3));
+                null, "Analyst", "Junior Analyst", "Skill1, Skill2", 4, false, LocalDate.now().minusYears(3),false);
 
         String sql1 = "SELECT COUNT(*) FROM applicants WHERE id IN (13, 14)";
         Integer numOfApplicantsBeforeDelete = jdbcTemplate.queryForObject(sql1, Integer.class);
@@ -108,9 +108,9 @@ public class ApplicantDeletionTests {
     @Test
     public void testBoundaryConditionForOneYear() {
         String insertSql = "INSERT INTO applicants (id, name, email, phone, location, current_job_role, old_job_role, " +
-                "eventid, is_internal, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "skills, eventid, is_internal, start_date,is_favourite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(insertSql, 15L, "Boundary User", "boundary@test.com", "3333333333",
-                null, "Consultant", "Associate Consultant", 5, true, LocalDate.now().minusYears(1));
+                null, "Consultant", "Associate Consultant", "Skill1, Skill2", 5, true, LocalDate.now().minusYears(1),false);
 
         String sql1 = "SELECT id FROM applicants WHERE id = 15";
         Integer id = jdbcTemplate.queryForObject(sql1, Integer.class);

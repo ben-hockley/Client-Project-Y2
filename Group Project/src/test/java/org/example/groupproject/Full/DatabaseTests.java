@@ -80,10 +80,10 @@ public class DatabaseTests {
     @Test
     public void testAddApplicantToApplicantsTable() {
         //Given
-        String insertSql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role," +
-                " eventid, is_internal, start_date, cv_file_path) " +
+        String insertSql = "INSERT INTO applicants (name, email, phone, location, current_job_role, old_job_role, skills," +
+                " eventid, is_internal, start_date, cv_file_path,is_favourite) " +
                 "VALUES ('New User', 'newuser@test.com', '0987654321', 'New Location', 'NewJob', " +
-                "'OldJob1, OldJob2', 1, true, '2022-01-01', 'path/to/cv')";
+                "'OldJob1, OldJob2', 'Skill1, Skill2', 1, true, '2022-01-01', 'path/to/cv',false)";
         jdbcTemplate.update(insertSql);
         //When
         String verifySql = "SELECT COUNT(*) FROM applicants";

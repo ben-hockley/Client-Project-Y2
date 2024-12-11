@@ -10,8 +10,14 @@ public record Applicant  (Long id,
                           Location location,
                           String currentJobRole,
                           String oldJobRole,
+                          String skills,
                           Integer eventId,
                           Boolean isInternal,
                           LocalDate startDate,
-                          String cvFilePath){
+                          String cvFilePath,
+                          Boolean isFavourite){
+
+    public String getExpiryDateAsString() {
+        return startDate.plusYears(1).toString();
+    }
 }

@@ -7,11 +7,12 @@ create table if not exists applicants (
     location varchar(255),
     current_job_role varchar(255) not null,
     old_job_role varchar(255) not null,
+    skills varchar(255) not null,
     eventid int,
     is_internal boolean,
     start_date date,
-    cv_file_path varchar(255)
-
+    cv_file_path varchar(255),
+    is_favourite boolean
 );
 
 drop table if exists events;
@@ -35,6 +36,3 @@ drop table if exists newsletter;
 create table if not exists newsletter (
     email VARCHAR(255)
 )engine=InnoDB;
-
-
-
