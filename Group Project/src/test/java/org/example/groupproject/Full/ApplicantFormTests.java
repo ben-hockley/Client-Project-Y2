@@ -51,7 +51,7 @@ public class ApplicantFormTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // Then the form is applicant form is correctly displayed
+        // Then the applicant form is correctly displayed
         assertEquals("applicant/applicantForm", Objects.requireNonNull(result.getModelAndView()).getViewName(),
                 "The view name should be applicant/applicantForm");
         assertTrue(result.getModelAndView().getModel().containsKey("applicantForm"),
