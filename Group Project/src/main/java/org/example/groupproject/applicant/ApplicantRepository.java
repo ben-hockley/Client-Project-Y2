@@ -19,7 +19,7 @@ public class ApplicantRepository {
     }
 
     public Applicant findById(Integer id) {
-        return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role, skills,eventId," +
+        return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role, skills,expected_salary,qualification,eventId," +
                         "is_internal, start_date, cv_file_path, is_favourite FROM applicants WHERE id = :id")
                 .param("id", id)
                 .query(Applicant.class)
@@ -62,7 +62,7 @@ public class ApplicantRepository {
     public List<Applicant> findWithFilters(String searchQuery, Integer eventId, Boolean isInternal, Location location) {
         StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(old_job_role) LIKE :searchQuery OR LOWER(skills) LIKE :searchQuery)");
+            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(old_job_role) LIKE :searchQuery OR LOWER(skills) LIKE :searchQuery OR LOWER(qualification) LIKE :searchQuery)");
         }
 
         if (eventId != null) {
