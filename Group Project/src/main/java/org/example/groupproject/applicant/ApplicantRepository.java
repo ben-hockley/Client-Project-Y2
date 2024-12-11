@@ -4,7 +4,9 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+
 @Repository
 public class ApplicantRepository {
 
@@ -19,7 +21,7 @@ public class ApplicantRepository {
     }
 
     public Applicant findById(Integer id) {
-        return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role, skills,eventId," +
+        return jdbcClient.sql("SELECT id,name,email,phone,location,current_job_role,old_job_role, skills,expected_salary,qualification,eventId," +
                         "is_internal, start_date, cv_file_path, is_favourite FROM applicants WHERE id = :id")
                 .param("id", id)
                 .query(Applicant.class)
@@ -62,7 +64,7 @@ public class ApplicantRepository {
     public List<Applicant> findWithFilters(String searchQuery, Integer eventId, Boolean isInternal, Location location) {
         StringBuilder sql = new StringBuilder("SELECT * FROM applicants WHERE TRUE");
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(old_job_role) LIKE :searchQuery OR LOWER(skills) LIKE :searchQuery)");
+            sql.append(" AND (LOWER(name) LIKE :searchQuery OR LOWER(old_job_role) LIKE :searchQuery OR LOWER(skills) LIKE :searchQuery OR LOWER(qualification) LIKE :searchQuery)");
         }
 
         if (eventId != null) {
@@ -91,5 +93,28 @@ public class ApplicantRepository {
             query = query.param("location", location.name());
         }
         return query.query(Applicant.class).list();
+    }
+
+    public void logContact(int applicantId, String contactedBy, String contactInfo, LocalDateTime contactDate) {
+        jdbcClient.sql("INSERT INTO contact_history (applicant_id, contacted_by, contact_date, contact_info) " +
+                        "VALUES (:applicantId, :contactedBy, :contactDate, :contactInfo)")
+                .param("applicantId", applicantId)
+                .param("contactedBy", contactedBy)
+                .param("contactDate", contactDate)
+                .param("contactInfo", contactInfo)
+                .update();
+    }
+
+    public List<ContactHistory> getContactHistory(Integer applicantId) {
+        return jdbcClient.sql("SELECT contacted_by, contact_date, contact_info " +
+                        "FROM contact_history WHERE applicant_id = :applicantId " +
+                        "ORDER BY contact_date DESC")
+                .param("applicantId", applicantId)
+                .query((rs, rowNum) -> new ContactHistory(
+                        rs.getString("contacted_by"),
+                        rs.getTimestamp("contact_date").toLocalDateTime(),
+                        rs.getString("contact_info")
+                ))
+                .list();
     }
 }

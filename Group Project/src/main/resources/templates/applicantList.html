@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
@@ -60,12 +61,7 @@
     <span th:if="${sessionUser.isAdmin}"><a href="/manageUsers" class="btn btn-primary">Manage Users</a></span>
 
     <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
-    <div class="header-container">
     <h1>All Applicants</h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Send Newsletter
-    </button>
-    </div>
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
         <h2>Keyword Search:</h2>
@@ -129,6 +125,5 @@
             })
             .catch(error => console.error('Error loading navbar:', error));
     </script>
-    <script src="/modal.js"></script>
 </body>
 </html>

@@ -84,6 +84,22 @@
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label" for="expectedSalary">Expected salary:</label>
+                    <input class="form-control" id="expectedSalary" name="expectedSalary" th:field="*{expectedSalary}"
+                           placeholder="expectedSalary" type="text"/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('expectedSalary')}"
+                         th:errors="*{expectedSalary}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="qualification">Qualifications:</label>
+                    <input class="form-control" id="qualification" name="qualification" th:field="*{qualification}"
+                           placeholder="qualification" type="text"/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('qualification')}"
+                         th:errors="*{qualification}"></div>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label" for="cv">Upload CV:</label>
                     <input class="form-control" id="cv" name="cv" th:field="*{cv}" type="file"/>
                     <div class="text-danger" th:if="${#fields.hasErrors('cv')}" th:errors="*{cv}"></div>

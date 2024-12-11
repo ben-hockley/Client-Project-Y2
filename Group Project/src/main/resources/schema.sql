@@ -1,3 +1,6 @@
+drop schema if exists group_project;
+create schema group_project;
+use group_project;
 drop table if exists applicants;
 create table if not exists applicants (
     id int auto_increment primary key,
@@ -8,6 +11,8 @@ create table if not exists applicants (
     current_job_role varchar(255) not null,
     old_job_role varchar(255) not null,
     skills varchar(255) not null,
+    expected_salary int not null ,
+    qualification varchar(255) not null,
     eventid int,
     is_internal boolean,
     start_date date,
@@ -35,4 +40,12 @@ create table if not exists users(
 drop table if exists newsletter;
 create table if not exists newsletter (
     email VARCHAR(255)
-)engine=InnoDB;
+);
+
+create table if not exists contact_history (
+    id int auto_increment primary key,
+    applicant_id int not null,
+    contacted_by varchar(255) not null,
+    contact_date datetime not null,
+    contact_info varchar(255) not null
+)engine =InnoDB;
