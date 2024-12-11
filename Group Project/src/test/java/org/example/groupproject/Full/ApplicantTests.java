@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,8 +86,8 @@ public class ApplicantTests {
         Authentication authentication = mock(Authentication.class);
         User user = new User();
         Applicant applicant = new Applicant(1L, "Test Name", "test@example.com", "1234567890",
-                null, "Current Job", "Old Job", "Skills", 1, true,
-                null, "path/to/cv", false);
+                null, "Current Job", "Old Job", "Skills", 30000, "Msc", 1, true,
+                LocalDate.now(), "/cv", false);
         given(authentication.getName()).willReturn("testUser");
         given(userRepository.findByUsername("testUser")).willReturn(user);
         given(applicantRepository.findById(1)).willReturn(applicant);
