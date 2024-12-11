@@ -13,9 +13,6 @@
 <body>
     <div id="navbar-placeholder"></div>
 
-    <!-- Button trigger modal -->
-
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -61,7 +58,13 @@
     <span th:if="${sessionUser.isAdmin}"><a href="/manageUsers" class="btn btn-primary">Manage Users</a></span>
 
     <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
-    <h1>All Applicants</h1>
+    <div class="header-container">
+        <h1>All Applicants</h1>
+        <button type="button" class="btn btn-primary send-newsletter-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Send Newsletter
+        </button>
+    </div>
+
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
         <h2>Keyword Search:</h2>
@@ -125,5 +128,7 @@
             })
             .catch(error => console.error('Error loading navbar:', error));
     </script>
+
+<script src="/modal.js"></script>
 </body>
 </html>
