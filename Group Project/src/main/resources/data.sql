@@ -1,6 +1,7 @@
 delete from applicants;
 delete from events;
 delete from users;
+delete from contact_history;
 
 insert into applicants (name, email, phone, location, current_job_role, old_job_role, skills, expected_salary, qualification, eventID, is_internal,
                         start_date, cv_file_path, is_favourite)
@@ -37,3 +38,4 @@ values ('adminTest','adminTest@test.com','adminTest',FALSE);
 select * from users;
 select * from events;
 select * from applicants;
+select * from contact_history;

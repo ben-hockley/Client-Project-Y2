@@ -1,3 +1,6 @@
+drop schema if exists group_project;
+create schema group_project;
+use group_project;
 drop table if exists applicants;
 create table if not exists applicants (
     id int auto_increment primary key,
@@ -32,3 +35,11 @@ create table if not exists users(
     email varchar(255) not null,
     is_admin boolean not null
 ) engine=InnoDB;
+
+create table if not exists contact_history (
+    id int auto_increment primary key,
+    applicant_id int not null,
+    contacted_by varchar(255) not null,
+    contact_date datetime not null,
+    contact_info varchar(255) not null
+);
