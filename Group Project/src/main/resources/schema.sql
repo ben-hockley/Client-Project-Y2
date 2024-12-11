@@ -31,7 +31,7 @@ create table if not exists users(
     is_admin boolean not null
 );
 
--- Drop the table if it exists
+
 drop table if exists newsletter;
 create table if not exists newsletter (
     email VARCHAR(255)

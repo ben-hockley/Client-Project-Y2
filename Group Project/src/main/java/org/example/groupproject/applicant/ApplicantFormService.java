@@ -65,4 +65,6 @@ public class ApplicantFormService {
         String sql = "UPDATE applicants SET cv_file_path = ? WHERE id = ?";
         jdbcTemplate.update(sql, cvFilePath, applicantId);
     }
+
+
 }

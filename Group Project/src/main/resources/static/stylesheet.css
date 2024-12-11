@@ -228,16 +228,16 @@ form h5 {
 
 /* Modal Wrapper */
 .modal-wrapper {
-    display: none;
+    display: none; /* Initially hidden */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5); /* Dimmed background */
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1000; /* Ensure it is above other elements */
 }
 
 /* Modal Box */
@@ -249,6 +249,7 @@ form h5 {
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Modal Header */
 .modal-header {
@@ -370,6 +371,17 @@ form h5 {
 .invisibleForm {
     padding: 0;
     box-shadow: none;
+}
+
+.send-newsletter-btn {
+    margin-left: 20px; /* Adds space between the title and the button */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Aligns the content to the edges */
+    align-items: center; /* Vertically centers the content */
+    margin-bottom: 20px; /* Add some space below the header */
 }
 
 

@@ -4,6 +4,7 @@ import org.example.groupproject.applicant.user.User;
 import org.example.groupproject.applicant.user.UserRepository;
 import org.example.groupproject.filter.Filter;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
