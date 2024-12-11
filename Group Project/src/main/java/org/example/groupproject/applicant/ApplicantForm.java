@@ -77,4 +77,6 @@ public class ApplicantForm {
     private String qualification;
 
     private MultipartFile cv;
+
+    private boolean newsLetterSub;
 }

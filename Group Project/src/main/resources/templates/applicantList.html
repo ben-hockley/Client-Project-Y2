@@ -12,8 +12,59 @@
 </head>
 <body>
     <div id="navbar-placeholder"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Send Newsletter</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newsletterForm">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" placeholder="Enter subject" >
+                        </div>
+
+                        <!-- Body Input Field -->
+                        <div class="mb-3">
+                            <label for="body" class="form-label">Body</label>
+                            <textarea class="form-control" id="body" rows="4" placeholder="Enter email body" required ></textarea>
+                        </div>
+
+                        <!-- Send to All Checkbox -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="sendToAll">
+                            <label class="form-check-label" for="sendToAll">
+                                Send to all recipients
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="openOutlookButton">Open Outlook</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- This button only shows if logged-in user is an admin -->
+    <span th:if="${sessionUser.isAdmin}"><a href="/manageUsers" class="btn btn-primary">Manage Users</a></span>
+
     <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
-    <h1>All Applicants</h1>
+    <div class="header-container">
+        <h1>All Applicants</h1>
+        <button type="button" class="btn btn-primary send-newsletter-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Send Newsletter
+        </button>
+    </div>
+
     <form th:action="@{/applicants/all}" th:method="get" class="filter-form" th:object="${filter}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <!-- CSRF token -->
         <h2>Keyword Search:</h2>
@@ -55,7 +106,6 @@
                     <span th:text="'Email: ' + ${applicant.email()}"></span>
                     <span th:text="'Phone Number: ' + ${applicant.phone()}"></span>
                     <span th:text="'Location: ' + ${applicant.location().toString()}"></span>
-                    <span th:text="'Skills: ' + ${applicant.skills()}"></span>
                 </a>
 
                 <a th:href="'/favouriteApplicant/' + ${applicant.id()}"><i class="fa-solid fa-star" th:class="${applicant.isFavourite()} ? 'fa-solid fa-star favourite' : 'fa-solid fa-star notFavourite'"></i></a>
@@ -78,5 +128,7 @@
             })
             .catch(error => console.error('Error loading navbar:', error));
     </script>
+
+<script src="/modal.js"></script>
 </body>
 </html>

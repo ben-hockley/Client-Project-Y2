@@ -35,6 +35,10 @@ values ('Test Event 1','Test Location 1'),
 insert into users (username, email, password, is_admin)
 values ('adminTest','adminTest@test.com','adminTest',FALSE);
 
+insert into newsletter (email)
+values ('coled4@cardiff.ac.uk'),
+       ('cole.b.david@gmail.com');
+
 select * from users;
 select * from events;
 select * from applicants;

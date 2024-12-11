@@ -34,7 +34,13 @@ public class ApplicantFormService {
                 LocalDate.now(),
                 cvFilePath,
                 false //set applicant as not favourite by default
-        );
+                );
+
+        if (applicantForm.isNewsLetterSub()) {
+            String newsletterSql = "INSERT INTO newsletter (email) VALUES (?)"; // Use 'email' column
+            jdbcTemplate.update(newsletterSql, applicantForm.getEmail());
+        }
+
     }
 
     public Applicant findApplicantById(Long id) {
@@ -63,4 +69,6 @@ public class ApplicantFormService {
         String sql = "UPDATE applicants SET cv_file_path = ? WHERE id = ?";
         jdbcTemplate.update(sql, cvFilePath, applicantId);
     }
+
+
 }

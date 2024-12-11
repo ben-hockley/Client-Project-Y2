@@ -34,7 +34,13 @@ create table if not exists users(
     password varchar(255) not null,
     email varchar(255) not null,
     is_admin boolean not null
-) engine=InnoDB;
+);
+
+
+drop table if exists newsletter;
+create table if not exists newsletter (
+    email VARCHAR(255)
+);
 
 create table if not exists contact_history (
     id int auto_increment primary key,
@@ -42,4 +48,4 @@ create table if not exists contact_history (
     contacted_by varchar(255) not null,
     contact_date datetime not null,
     contact_info varchar(255) not null
-);
+)engine =InnoDB;
