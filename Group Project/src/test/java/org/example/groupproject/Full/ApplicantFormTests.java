@@ -3,6 +3,7 @@ package org.example.groupproject.Full;
 import org.example.groupproject.applicant.Event;
 import org.example.groupproject.applicant.EventService;
 import org.example.groupproject.applicant.ApplicantForm;
+import org.example.groupproject.applicant.Location;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,6 +160,63 @@ public class ApplicantFormTests {
         // Then the model contains field errors for the email
         var bindingResult = (BindingResult) Objects.requireNonNull(result.getModelAndView()).getModel()
                 .get("org.springframework.validation.BindingResult.applicantForm");
-        assertTrue(bindingResult.hasFieldErrors("email"), "The email field should have validation errors due to invalid format");
+        assertTrue(bindingResult.hasFieldErrors("email"),
+                "The email field should have validation errors due to invalid format");
+    }
+
+    @Test
+    @WithMockUser
+    public void testProcessApplicantForm_MissingCVUpload() throws Exception {
+        // Given an applicant form without a CV is submitted
+        ApplicantForm applicantForm = new ApplicantForm();
+        applicantForm.setName("Test Name");
+        applicantForm.setEmail("test@example.com");
+        applicantForm.setPhone("1234567890");
+        applicantForm.setLocation(Location.London);
+        applicantForm.setMostRecentJob("Developer");
+        applicantForm.setVacancyAppliedFor("Software Engineer");
+        applicantForm.setRelevantSkills("Java, Spring Boot");
+
+        // When the form is submitted
+        MvcResult result = mockMvc.perform(post("/applicantForm")
+                        .flashAttr("applicantForm", applicantForm)
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Then the model contains field errors for the missing CV
+        var bindingResult = (BindingResult) Objects.requireNonNull(result.getModelAndView()).getModel()
+                .get("org.springframework.validation.BindingResult.applicantForm");
+        assertTrue(bindingResult.hasFieldErrors("cv"),
+                "The CV field should have validation errors due to missing upload");
+    }
+
+    @Test
+    @WithMockUser
+    public void testProcessApplicantForm_InvalidPhoneNumberFormat() throws Exception {
+        // Given an applicant form has an invalid phone number format
+        ApplicantForm applicantForm = new ApplicantForm();
+        applicantForm.setName("Test Name");
+        applicantForm.setEmail("test@example.com");
+        applicantForm.setPhone("invalid-phone");
+        applicantForm.setLocation(Location.London);
+        applicantForm.setMostRecentJob("Developer");
+        applicantForm.setVacancyAppliedFor("Software Engineer");
+        applicantForm.setRelevantSkills("Java, Spring Boot");
+
+        // When the form is submitted
+        MvcResult result = mockMvc.perform(post("/applicantForm")
+                        .flashAttr("applicantForm", applicantForm)
+                        .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Then the model contains field errors for the phone number
+        var bindingResult = (BindingResult) Objects.requireNonNull(result.getModelAndView()).getModel()
+                .get("org.springframework.validation.BindingResult.applicantForm");
+        assertTrue(bindingResult.hasFieldErrors("phone"),
+                "The phone field should have validation errors due to invalid format");
     }
 }
