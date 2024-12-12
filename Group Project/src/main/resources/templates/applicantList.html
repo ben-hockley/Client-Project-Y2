@@ -52,11 +52,6 @@
     </div>
 
 
-
-
-    <!-- This button only shows if logged-in user is an admin -->
-    <span th:if="${sessionUser.isAdmin}"><a href="/manageUsers" class="btn btn-primary">Manage Users</a></span>
-
     <div class="alert alert-primary" th:text="'Welcome back, ' + ${sessionUser.username}"></div>
     <div class="header-container">
         <h1>All Applicants</h1>
