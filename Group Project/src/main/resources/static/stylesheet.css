@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body{
+    font-family: "Roboto", sans-serif;
+    background-color: #f7f9fc
+}
+
+h1{
+    color: #1b3a57;
+}
+h2{
+    color: #1b3a57;
+}
+h3{
+    color: white;
+}
+
+.applicantColumn{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px;
+    width: auto;
+}
+.applicantRow{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: auto;
+    background-color:  #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+
+.applicantLink {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #1b3a57;
+}
+
+.applicantLink:hover {
+    background-color: #d0e4f1;
+}
+
+.btnAddApplicants{
+    float: right;
+    margin: 10px;
+    background-color:  #3b6ca5;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btnAddApplicants:hover{
+    background-color: #2a5a84;
+    color: white;
+}
+
+.filterFormLabel{
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: bold;
+    color: #1b3a57;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.filter-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input {
+    width: 300px;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter-form {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-form select {
+    margin-bottom: 10px;
+}
+.filterApplyButton{
+    display: inline-block;
+    margin-left: 5px;
+    background-color:  #3b6ca5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.filterApplyButton:hover{
+    background-color: #005b91;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #1b3a57;
+    color: white;
+}
+
+.table td {
+    color: #1b3a57;
+}
+
+a {
+    text-decoration: none;
+    color: #0079c1;
+}
+
+a:hover {
+    color: #005b91;
+}
+/* Card Styling */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+}
+
+.card-header {
+    background-color: #003087;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 20px;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+.row .card {
+    height: 100%;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #f1f1f1;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.list-group-item strong {
+    font-weight: 600;
+    color: #003087;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form h5 {
+    color: #003087;
+    font-weight: bold;
+}
+
+
+
+.btn-primary {
+    background-color: #0072ce;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #005b91;
+    color: white;
+}
+
+/* Modal Wrapper */
+.modal-wrapper {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dimmed background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+/* Modal Box */
+.modal {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Modal Header */
+.modal-header {
+    background: #f1f1f1;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-header h5 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 16px;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #f1f1f1;
+    border-top: 1px solid #ddd;
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn.close {
+    background: #ddd;
+    color: #333;
+}
+
+.btn.save {
+    background-color:  #3b6ca5;
+    color: white;
+}
+
+/* Open Modal Button */
+.open-modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color:  #3b6ca5;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to left, #add8e6, #005eb8);
+    padding: 10px 20px;
+}
+.navbar .logo {
+    margin-right: auto;
+}
+.navbar .nav-center {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+}
+.navbar a:hover {
+    background-color: #003087;
+    border-radius: 5px;
+}
+.navbar .nav-right {
+    display: flex;
+    align-items: center;
+}
+.navbar .search-icon {
+    margin-right: 15px;
+}
+.navbar .login-button {
+    background-color: #add8e6;
+    color: #005eb8;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.navbar .login-button:hover {
+    background-color: #87ceeb;
+}
+
+/* changes the color of the font awesome star if the applicant is a favorite */
+.favourite {
+    color: #f1c40f;
+}
+
+/* overwrites default form properties to show only button */
+.invisibleForm {
+    padding: 0;
+    box-shadow: none;
+}
+
+.send-newsletter-btn {
+    margin-left: 20px; /* Adds space between the title and the button */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Aligns the content to the edges */
+    align-items: center; /* Vertically centers the content */
+    margin-bottom: 20px; /* Add some space below the header */
+}
+
+
