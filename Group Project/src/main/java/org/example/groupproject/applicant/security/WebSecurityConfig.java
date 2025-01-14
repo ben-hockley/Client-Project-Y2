@@ -1,6 +1,7 @@
 package org.example.groupproject.applicant.security;
 
 import org.example.groupproject.applicant.user.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -11,10 +12,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    private AuthenticationFailureHandler customAuthenticationFailureHandler;
 
     private final String[] ENDPOINTS_WHITELIST = {
             "/applicants/**",
@@ -32,7 +37,6 @@ public class WebSecurityConfig {
             "/logout"
     };
 
-
     @Bean
     UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
@@ -48,7 +52,6 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
@@ -56,9 +59,8 @@ public class WebSecurityConfig {
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authenticationProvider(authenticationProvider());
-        
-        http.headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
-        //http.headers(header->{header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);});
+
+        http.headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         http.authorizeHttpRequests(auth ->
                         auth.requestMatchers(ENDPOINTS_WHITELIST).authenticated()
@@ -68,6 +70,7 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("username")
                         .defaultSuccessUrl("/applicants/all")
+                        .failureHandler(customAuthenticationFailureHandler) // Use custom failure handler
                         .permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/login").permitAll()
