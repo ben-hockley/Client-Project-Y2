@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicants List</title>
+    <!-- Bootstrap 5.3.2 for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Event Applicants</h2>
+
+    <!-- Table to display all applicants -->
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Event Attended</th>
+            <th>Extra Info</th>
+            <th>Interest</th>
+            <th>Spoke To</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the applicants and display their information -->
+        <th:block th:each="applicant, iterStat : ${applicants}">
+            <tr>
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${applicant.name}"></td>
+                <td th:text="${applicant.email}"></td>
+                <td th:text="${applicant.eventAttended}"></td>
+                <td th:text="${applicant.extraInfo}"></td>
+                <td th:text="${applicant.interest}"></td>
+                <td th:text="${applicant.spokeTo}"></td>
+                <td>
+                    <form th:action="@{/applicants/delete/{id}(id=${applicant.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this applicant?');">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <!-- Button to go back to the form page -->
+    <a href="/event-applicant-form" class="btn btn-primary">Add New Applicant</a>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

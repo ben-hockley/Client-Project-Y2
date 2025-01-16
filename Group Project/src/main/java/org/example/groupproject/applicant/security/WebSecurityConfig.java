@@ -19,6 +19,8 @@ public class WebSecurityConfig {
     private final String[] ENDPOINTS_WHITELIST = {
             "/applicants/**",
             "/applicantForm",
+            "/event-applicant-form",
+            "/all-event-form",
             "importcsv",
             "import-csv",
             "/cv/**",
@@ -30,6 +32,8 @@ public class WebSecurityConfig {
             "/reports",
             "/navbar.html",
             "/logout"
+
+
     };
 
 
@@ -52,10 +56,19 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
+
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authenticationProvider(authenticationProvider());
+
+        // Disable CSRF for specific pages
+        http.csrf(csrf -> csrf
+                .ignoringRequestMatchers(
+                        "/event-applicant-form",  // Disable CSRF for the form endpoint
+                        "/applicantForm",
+                        "/delete/{id}"
+                ));
         
         http.headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         //http.headers(header->{header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);});
@@ -75,4 +88,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
+
 }

@@ -48,4 +48,18 @@ create table if not exists contact_history (
     contacted_by varchar(255) not null,
     contact_date datetime not null,
     contact_info varchar(255) not null
-)engine =InnoDB;
+);
+
+drop table if exists event_applicant_form;
+create table if not exists event_applicant_form  (
+                                      id INT AUTO_INCREMENT PRIMARY KEY,
+                                      email VARCHAR(255) NOT NULL,
+                                      event_attended VARCHAR(255),
+                                      extra_info TEXT,
+                                      interest VARCHAR(255),
+                                      name VARCHAR(255),
+                                      spoke_to VARCHAR(255)
+)
+
+
+engine =InnoDB;
